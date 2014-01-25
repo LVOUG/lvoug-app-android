@@ -14,9 +14,11 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.squareup.otto.Bus;
 import lv.oug.android.R;
 import lv.oug.android.infrastructure.common.StringService;
+import lv.oug.android.presentation.about.AboutFragment;
 import lv.oug.android.presentation.home.HomeFragment;
 import lv.oug.android.presentation.navigation.NavigationDrawerAdapter;
 import lv.oug.android.presentation.navigation.NavigationItem;
+import lv.oug.android.presentation.news.NewsFragment;
 
 import javax.inject.Inject;
 
@@ -66,7 +68,6 @@ public class MainActivity extends SherlockFragmentActivity {
         super.onPause();
         bus.unregister(this);
     }
-
 
     @Override
     protected void onPostCreate(Bundle state) {
@@ -127,7 +128,7 @@ public class MainActivity extends SherlockFragmentActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
         if (state == null) {
-            String tag = stringService.loadString(R.string.home);
+            String tag = stringService.loadString(R.string.nav_home);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.content_frame, new HomeFragment(), tag)
@@ -143,13 +144,15 @@ public class MainActivity extends SherlockFragmentActivity {
 
     private void selectItem(int position) {
         NavigationItem navigationItem = drawerAdapter.get(position);
-        String selectedItem = stringService.loadString(navigationItem.getTitleName());
+        String selectedItem = stringService.loadString(navigationItem.getTitleId());
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(selectedItem);
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if(! (currentFragment.equals(fragment))){
-            fragment = loadFragment(selectedItem);
-            changeFragment(fragment, selectedItem);
+            fragment = loadFragment(navigationItem);
+            if (fragment != null) {
+                changeFragment(fragment, selectedItem);
+            }
         }
 
         drawerList.setItemChecked(position, true);
@@ -157,15 +160,16 @@ public class MainActivity extends SherlockFragmentActivity {
         drawerLayout.closeDrawer(drawerList);
     }
 
-    private Fragment loadFragment(String selectedItem) {
-        Fragment fragment;
-        if(selectedItem.equals(getString(R.string.home))) {
-            fragment = new HomeFragment();
-        } else {
-            fragment = new HomeFragment();
+    private Fragment loadFragment(NavigationItem selectedItem) {
+        int titleId = selectedItem.getTitleId();
+        if(titleId == R.string.nav_home) {
+            return new HomeFragment();
+        } else if(titleId == R.string.nav_news) {
+            return new NewsFragment();
+        } else if(titleId == R.string.nav_about)  {
+            return new AboutFragment();
         }
-
-        return fragment;
+        return null;
     }
 
     public void changeFragment(Fragment fragment) {

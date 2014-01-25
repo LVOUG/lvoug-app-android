@@ -2,27 +2,27 @@ package lv.oug.android.presentation.navigation;
 
 public class NavigationItem {
 
-    private String iconName;
-    private String titleName;
+    private int imgId;
+    private int titleId;
 
-    public NavigationItem(String titleName) {
-        this.titleName = titleName;
-        this.iconName = titleName + "_icon";
+    public NavigationItem(int titleId, int imgId) {
+        this.titleId = titleId;
+        this.imgId = imgId;
     }
 
-    public String getIconName() {
-        return iconName;
+    public int getImgId() {
+        return imgId;
     }
 
-    public void setIconName(String iconName) {
-        this.iconName = iconName;
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
     }
 
-    public String getTitleName() {
-        return titleName;
+    public int getTitleId() {
+        return titleId;
     }
 
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
+    public void setTitleId(int titleId) {
+        this.titleId = titleId;
     }
 }

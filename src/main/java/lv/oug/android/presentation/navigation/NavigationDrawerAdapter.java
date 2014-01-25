@@ -25,7 +25,9 @@ public class NavigationDrawerAdapter extends BaseListAdapter<NavigationItem> {
 
     public NavigationDrawerAdapter() {
         setData(Arrays.asList(
-                new NavigationItem("home")
+                new NavigationItem(R.string.nav_home, R.drawable.home_icon),
+                new NavigationItem(R.string.nav_news, R.drawable.home_icon),
+                new NavigationItem(R.string.nav_about, R.drawable.home_icon)
         ));
     }
 
@@ -35,11 +37,11 @@ public class NavigationDrawerAdapter extends BaseListAdapter<NavigationItem> {
         NavigationItem item = get(position);
 
         TextView titleV = ButterKnife.findById(view, R.id.navigation_title);
-        String title = stringService.loadString(item.getTitleName());
+        String title = stringService.loadString(item.getTitleId());
         titleV.setText(title);
 
         ImageView moreButton = ButterKnife.findById(view, R.id.navigation_icon);
-        Drawable drawable = drawableService.loadDrawable(item.getIconName());
+        Drawable drawable = drawableService.loadDrawable(item.getImgId());
         moreButton.setImageDrawable(drawable);
 
         return view;

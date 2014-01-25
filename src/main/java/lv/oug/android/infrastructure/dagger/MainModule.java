@@ -6,7 +6,9 @@ import dagger.Module;
 import dagger.Provides;
 import lv.oug.android.presentation.BaseApplication;
 import lv.oug.android.presentation.MainActivity;
+import lv.oug.android.presentation.about.AboutFragment;
 import lv.oug.android.presentation.home.HomeFragment;
+import lv.oug.android.presentation.news.NewsFragment;
 
 import javax.inject.Singleton;
 
@@ -14,7 +16,9 @@ import javax.inject.Singleton;
         injects = {
                 BaseApplication.class,
                 MainActivity.class,
-                HomeFragment.class
+                HomeFragment.class,
+                NewsFragment.class,
+                AboutFragment.class
         }
 )
 public class MainModule implements DaggerModule {
@@ -34,5 +38,4 @@ public class MainModule implements DaggerModule {
     Context provideContext() {
         return appContext;
     }
-
 }

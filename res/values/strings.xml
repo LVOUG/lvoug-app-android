@@ -11,5 +11,8 @@
     <string name="app_not_available">App not available</string>
 
     <!--Navigation Tabs-->
-    <string name="home">Home</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_news">News</string>
+    <string name="nav_about">About</string>
+    <string name="nav_twitter">Twitter</string>
 </resources>
