@@ -17,6 +17,7 @@ import com.squareup.otto.Bus;
 import lv.oug.android.R;
 import lv.oug.android.infrastructure.common.StringService;
 import lv.oug.android.presentation.about.AboutFragment;
+import lv.oug.android.presentation.events.PastEventsFragment;
 import lv.oug.android.presentation.home.HomeFragment;
 import lv.oug.android.presentation.navigation.NavigationDrawerAdapter;
 import lv.oug.android.presentation.navigation.NavigationItem;
@@ -164,6 +165,8 @@ public class MainActivity extends SherlockFragmentActivity {
                 changeFragment(new HomeFragment(), selectedItem);
             } else if(navigationItem == NavigationItem.NEWS) {
                 changeFragment(new NewsFragment(), selectedItem);
+            } else if(navigationItem == NavigationItem.PAST_EVENTS) {
+                changeFragment(new PastEventsFragment(), selectedItem);
             } else if(navigationItem == NavigationItem.ABOUT)  {
                 changeFragment(new AboutFragment(), selectedItem);
             } else if(navigationItem == NavigationItem.TWITTER) {

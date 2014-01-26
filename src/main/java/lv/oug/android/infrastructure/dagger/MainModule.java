@@ -7,6 +7,7 @@ import dagger.Provides;
 import lv.oug.android.presentation.BaseApplication;
 import lv.oug.android.presentation.MainActivity;
 import lv.oug.android.presentation.about.AboutFragment;
+import lv.oug.android.presentation.events.PastEventsFragment;
 import lv.oug.android.presentation.home.HomeFragment;
 import lv.oug.android.presentation.news.NewsFragment;
 
@@ -17,6 +18,7 @@ import javax.inject.Singleton;
                 BaseApplication.class,
                 MainActivity.class,
                 HomeFragment.class,
+                PastEventsFragment.class,
                 NewsFragment.class,
                 AboutFragment.class
         }
