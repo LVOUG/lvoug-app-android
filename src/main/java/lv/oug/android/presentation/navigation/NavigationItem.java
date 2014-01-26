@@ -1,11 +1,17 @@
 package lv.oug.android.presentation.navigation;
 
-public class NavigationItem {
+import lv.oug.android.R;
+
+public enum NavigationItem {
+
+    HOME(R.string.nav_home, R.drawable.home_icon),
+    NEWS(R.string.nav_news, R.drawable.news_icon),
+    ABOUT(R.string.nav_about, R.drawable.about_icon);
 
     private int imgId;
     private int titleId;
 
-    public NavigationItem(int titleId, int imgId) {
+    NavigationItem(int titleId, int imgId) {
         this.titleId = titleId;
         this.imgId = imgId;
     }
@@ -14,15 +20,7 @@ public class NavigationItem {
         return imgId;
     }
 
-    public void setImgId(int imgId) {
-        this.imgId = imgId;
-    }
-
     public int getTitleId() {
         return titleId;
-    }
-
-    public void setTitleId(int titleId) {
-        this.titleId = titleId;
     }
 }

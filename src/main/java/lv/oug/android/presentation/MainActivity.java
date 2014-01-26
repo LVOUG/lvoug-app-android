@@ -148,28 +148,24 @@ public class MainActivity extends SherlockFragmentActivity {
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(selectedItem);
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        if(! (currentFragment.equals(fragment))){
-            fragment = loadFragment(navigationItem);
-            if (fragment != null) {
-                changeFragment(fragment, selectedItem);
-            }
-        }
+
+        navigationAction(navigationItem, selectedItem, fragment, currentFragment);
 
         drawerList.setItemChecked(position, true);
         setTitle(selectedItem);
         drawerLayout.closeDrawer(drawerList);
     }
 
-    private Fragment loadFragment(NavigationItem selectedItem) {
-        int titleId = selectedItem.getTitleId();
-        if(titleId == R.string.nav_home) {
-            return new HomeFragment();
-        } else if(titleId == R.string.nav_news) {
-            return new NewsFragment();
-        } else if(titleId == R.string.nav_about)  {
-            return new AboutFragment();
+    private void navigationAction(NavigationItem navigationItem, String selectedItem, Fragment fragment, Fragment currentFragment) {
+        if(! (currentFragment.equals(fragment))){
+            if(navigationItem == NavigationItem.HOME) {
+                changeFragment(new HomeFragment(), selectedItem);
+            } else if(navigationItem == NavigationItem.NEWS) {
+                changeFragment(new NewsFragment(), selectedItem);
+            } else if(navigationItem == NavigationItem.ABOUT)  {
+                changeFragment(new AboutFragment(), selectedItem);
+            }
         }
-        return null;
     }
 
     public void changeFragment(Fragment fragment) {

@@ -24,11 +24,7 @@ public class NavigationDrawerAdapter extends BaseListAdapter<NavigationItem> {
     DrawableService drawableService;
 
     public NavigationDrawerAdapter() {
-        setData(Arrays.asList(
-                new NavigationItem(R.string.nav_home, R.drawable.home_icon),
-                new NavigationItem(R.string.nav_news, R.drawable.home_icon),
-                new NavigationItem(R.string.nav_about, R.drawable.home_icon)
-        ));
+        setData(Arrays.asList(NavigationItem.values()));
     }
 
     @Override
