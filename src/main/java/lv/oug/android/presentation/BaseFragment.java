@@ -52,7 +52,6 @@ public abstract class BaseFragment extends SherlockFragment {
         return (MainActivity) getActivity();
     }
 
-
 	public void showProgressDialog() {
 		pd = new ProgressDialog(getActivity());
 		pd.setMessage("Please wait");

@@ -1,5 +1,7 @@
 package lv.oug.android.presentation;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -164,6 +166,8 @@ public class MainActivity extends SherlockFragmentActivity {
                 changeFragment(new NewsFragment(), selectedItem);
             } else if(navigationItem == NavigationItem.ABOUT)  {
                 changeFragment(new AboutFragment(), selectedItem);
+            } else if(navigationItem == NavigationItem.TWITTER) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/lvoug")));
             }
         }
     }
