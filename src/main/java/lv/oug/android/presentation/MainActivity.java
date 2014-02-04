@@ -1,15 +1,16 @@
 package lv.oug.android.presentation;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v4.app.Fragment;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.*;
-import android.widget.*;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -29,23 +30,16 @@ public class MainActivity extends SherlockFragmentActivity {
 
     @Inject
     Bus bus;
-
     @Inject
     StringService stringService;
-
     @Inject
     NavigationDrawerAdapter drawerAdapter;
-
     @InjectView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-
     @InjectView(R.id.left_drawer)
     ListView drawerList;
-
     CharSequence title;
-
     CharSequence drawerTitle;
-
     ActionBarDrawerToggle drawerToggle;
 
     @Override
@@ -111,23 +105,26 @@ public class MainActivity extends SherlockFragmentActivity {
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(title);
-                invalidateOptionsMenu();
-            }
+        drawerToggle = new
+                ActionBarDrawerToggle(
+                        this,                  /* host Activity */
+                        drawerLayout,         /* DrawerLayout object */
+                        R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                        R.string.drawer_open,  /* "open drawer" description for accessibility */
+                        R.string.drawer_close  /* "close drawer" description for accessibility */
+                ) {
+                    @Override
+                    public void onDrawerClosed(View view) {
+                        getSupportActionBar().setTitle(title);
+                        invalidateOptionsMenu();
+                    }
 
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(drawerTitle);
-                invalidateOptionsMenu();
-            }
-        };
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        getSupportActionBar().setTitle(drawerTitle);
+                        invalidateOptionsMenu();
+                    }
+                };
         drawerLayout.setDrawerListener(drawerToggle);
 
         if (state == null) {
@@ -160,18 +157,19 @@ public class MainActivity extends SherlockFragmentActivity {
     }
 
     private void navigationAction(NavigationItem navigationItem, String selectedItem, Fragment fragment, Fragment currentFragment) {
-        if(! (currentFragment.equals(fragment))){
-            if(navigationItem == NavigationItem.HOME) {
+        if (!(currentFragment.equals(fragment))) {
+            if (navigationItem == NavigationItem.HOME) {
                 changeFragment(new HomeFragment(), selectedItem);
-            } else if(navigationItem == NavigationItem.NEWS) {
+            } else if (navigationItem == NavigationItem.NEWS) {
                 changeFragment(new NewsFragment(), selectedItem);
-            } else if(navigationItem == NavigationItem.PAST_EVENTS) {
+            } else if (navigationItem == NavigationItem.PAST_EVENTS) {
                 changeFragment(new PastEventsFragment(), selectedItem);
-            } else if(navigationItem == NavigationItem.ABOUT)  {
+            } else if (navigationItem == NavigationItem.ABOUT) {
                 changeFragment(new AboutFragment(), selectedItem);
-            } else if(navigationItem == NavigationItem.TWITTER) {
+            } else if (navigationItem == NavigationItem.TWITTER) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/lvoug")));
             }
+
         }
     }
 
@@ -181,9 +179,9 @@ public class MainActivity extends SherlockFragmentActivity {
 
     public void changeFragment(Fragment fragment, String tag) {
         getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.content_frame, fragment, tag)
-            .addToBackStack(null)
-            .commit();
+                .beginTransaction()
+                .replace(R.id.content_frame, fragment, tag)
+                .addToBackStack(null)
+                .commit();
     }
 }
