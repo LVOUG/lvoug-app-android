@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/red"
+        >
+
+    <ImageView
+            android:id="@+id/event_header_image"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="70dp"
+            android:src="@drawable/test_image"
+            android:scaleType="centerCrop"
+            />
+
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_no_top"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+        <TextView
+                android:id="@+id/event_title"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Mocked Event Name Title"
+                android:textColor="@color/crimson"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp"/>
+
+        <TextView
+                android:id="@+id/event_description"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Mocked Event Description Text"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                android:lines="3"
+                android:ellipsize="end"
+                android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+                android:id="@+id/event_date_block"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                >
+            <ImageView android:layout_width="15dp"
+                       android:layout_height="match_parent"
+                       android:src="@drawable/ico_events"
+                       android:layout_marginRight="5dp"
+                    />
+            <TextView
+                    android:id="@+id/event_date"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="05/02/2014"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="12sp"
+                    />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

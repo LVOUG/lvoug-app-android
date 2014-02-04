@@ -20,6 +20,8 @@
     <color name="transparent_green">#8090be17</color>
 
 
+    <color name="crimson">#ff950200</color>
+
     <color name="red">#ff0000</color>
     <color name="transparent_red">#80ff0000</color>
 </resources>

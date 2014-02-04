@@ -5,34 +5,6 @@
               android:orientation="vertical"
               android:background="@color/screen_background_light"
               android:layout_weight="1">
-
-    <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:background="@color/red"
-            >
-
-        <ImageView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:minHeight="70dp"
-                android:src="@drawable/test_image"
-                android:scaleType="centerInside"
-                />
-
-        <LinearLayout
-                android:layout_height="100dp"
-                android:layout_width="match_parent"
-                android:background="@color/blue_mark"
-
-                ></LinearLayout>
-    </LinearLayout>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nav_past_events"
-            android:id="@+id/textView"
-            android:layout_gravity="center"/>
+    <include layout="@layout/row_event_entity"/>
 
 </LinearLayout>
