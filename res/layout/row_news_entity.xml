@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_shape"
+        >
+
+    <ImageView android:layout_width="150px"
+               android:layout_height="150px"
+               android:scaleType="centerInside"
+               android:src="@drawable/logo_lvoug"/>
+
+    <LinearLayout android:layout_weight="1"
+                  android:layout_height="match_parent"
+                  android:layout_width="0dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginTop="10dp"
+                  android:orientation="vertical">
+
+        <TextView android:text="Tom Kyte and the Real World Performance Rock Stars Continue Their Tour"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:textSize="12sp"
+                  android:textColor="@color/lighted_black"
+                  android:layout_width="match_parent"/>
+
+        <TextView android:text="10/12/2013"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="5dp"
+                  android:textSize="10sp"
+                  android:textColor="@color/dark_grey"
+                  android:layout_height="wrap_content"
+                  android:layout_width="match_parent"/>
+
+    </LinearLayout>
+
+    <ImageButton android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:padding="15dp"
+                 android:src="@drawable/arrow"
+                 android:background="@null"/>
+</LinearLayout>
