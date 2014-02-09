@@ -28,6 +28,8 @@ import javax.inject.Inject;
 
 public class MainActivity extends SherlockFragmentActivity {
 
+    public static final String TWITTER_LVOUG_URL = "https://twitter.com/lvoug";
+
     @Inject
     Bus bus;
     @Inject
@@ -167,7 +169,7 @@ public class MainActivity extends SherlockFragmentActivity {
             } else if (navigationItem == NavigationItem.ABOUT) {
                 changeFragment(new AboutFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.TWITTER) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/lvoug")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(TWITTER_LVOUG_URL)));
             }
 
         }

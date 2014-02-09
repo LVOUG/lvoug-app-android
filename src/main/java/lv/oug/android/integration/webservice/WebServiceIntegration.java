@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lv.oug.android.infrastructure.common.ClassLogger;
+import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,6 +22,7 @@ public class WebServiceIntegration {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
+    public static final String WEBSERVICE_API_ARTICLES = "http://lvoug-webservice.herokuapp.com/api/articles";
     public static final String WEBSERVICE_API_EVENTS = "http://lvoug-webservice.herokuapp.com/api/events";
 
     ClassLogger logger = new ClassLogger(WebServiceIntegration.class);
@@ -38,6 +40,21 @@ public class WebServiceIntegration {
                 Reader reader = new InputStreamReader(source);
 
                 return gson.fromJson(reader, EventsWrapperJSON.class);
+            }
+        }.execute();
+        return asyncTask.get();
+    }
+
+    public ArticleWrapperJSON loadArticleWrapper() throws Exception {
+        AsyncTask<Void, Void, ArticleWrapperJSON> asyncTask = new AsyncTask<Void, Void, ArticleWrapperJSON>() {
+            @Override
+            protected ArticleWrapperJSON doInBackground(Void... params) {
+                InputStream source = retrieveStream(WEBSERVICE_API_ARTICLES);
+
+                Gson gson = createGson();
+                Reader reader = new InputStreamReader(source);
+
+                return gson.fromJson(reader, ArticleWrapperJSON.class);
             }
         }.execute();
         return asyncTask.get();
