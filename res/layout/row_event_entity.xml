@@ -20,7 +20,6 @@
 
     <LinearLayout
             android:layout_height="wrap_content"
-            android:minHeight="100dp"
             android:layout_width="match_parent"
             android:background="@drawable/border_no_top"
             android:orientation="vertical"
@@ -30,7 +29,9 @@
                 android:id="@+id/event_title"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Mocked Event Name Title"
+                android:text="@string/mock_title"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="@color/core_red_crimson"
                 android:textSize="14sp"
                 android:layout_marginBottom="2dp"/>
@@ -39,10 +40,10 @@
                 android:id="@+id/event_description"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Mocked Event Description Text"
+                android:text="@string/mock_description"
                 android:textColor="@color/dark_grey"
                 android:textSize="12sp"
-                android:lines="3"
+                android:maxLines="3"
                 android:ellipsize="end"
                 android:layout_marginBottom="5dp"/>
 
