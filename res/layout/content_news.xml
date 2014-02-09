@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout android:layout_height="0dp"
+                  android:layout_width="match_parent"
+                  android:layout_weight="1"
+                  android:orientation="vertical"
+                  android:layout_marginRight="10dp"
+                  android:layout_marginLeft="10dp">
+
+        <TextView
+                android:id="@+id/content_news_title"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="@color/core_red_crimson"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:fontFamily="sans-serif-condensed"
+                />
+
+        <TextView
+                android:id="@+id/content_news_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/core_red_navy"
+                />
+
+        <LinearLayout android:layout_height="1dp"
+                      android:layout_width="match_parent"
+                      android:layout_marginTop="2dp"
+                      android:layout_marginBottom="5dp"
+                      android:background="@color/core_red_navy"/>
+
+        <ImageView
+                android:id="@+id/content_news_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="150dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+        <TextView
+                android:id="@+id/content_news_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/core_red_navy"
+                />
+
+    </LinearLayout>
+
+</ScrollView>
