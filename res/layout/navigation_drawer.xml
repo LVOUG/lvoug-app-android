@@ -9,7 +9,7 @@
     <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     <ListView
             android:id="@+id/left_drawer"
@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
-            android:divider="@color/lighter_gray"
+            android:divider="@color/core_red_navy"
             android:dividerHeight="1dp"
             android:background="@color/screen_background_light"/>
 </android.support.v4.widget.DrawerLayout>

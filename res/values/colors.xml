@@ -19,9 +19,14 @@
     <color name="transparent_purple">#E5931d78</color>
     <color name="transparent_green">#8090be17</color>
 
+    <!--main app palette-->
 
-    <color name="crimson">#ff950200</color>
+    <color name="core_red">#ff0000</color>
+    <color name="core_red_transparent">#80ff0000</color>
+    <color name="core_red_salmon">#FF7373</color>
+    <color name="core_red_light">#fffff5f5</color>
+    <color name="core_red_navy">#973E3E</color>
+    <color name="core_red_crimson">#6E0000</color>
 
-    <color name="red">#ff0000</color>
-    <color name="transparent_red">#80ff0000</color>
+
 </resources>
