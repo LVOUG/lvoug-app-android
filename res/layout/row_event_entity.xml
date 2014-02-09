@@ -2,11 +2,13 @@
 
 
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
         >
 
     <ImageView
@@ -14,7 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:minHeight="70dp"
-            android:src="@drawable/test_image"
             android:scaleType="centerCrop"
             />
 
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="@string/mock_description"
-                android:textColor="@color/dark_grey"
+                android:textColor="@color/core_red_navy"
                 android:textSize="12sp"
                 android:maxLines="3"
                 android:ellipsize="end"
@@ -65,7 +66,7 @@
                     android:layout_weight="1"
                     android:text="05/02/2014"
                     android:textStyle="bold"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/core_red_navy"
                     android:textSize="12sp"
                     />
         </LinearLayout>

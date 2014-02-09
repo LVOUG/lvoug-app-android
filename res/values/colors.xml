@@ -2,7 +2,6 @@
 <resources>
     <color name="screen_background_light">#ffffffff</color>
     <color name="screen_background_popup">#fff7f7f7</color>
-    <color name="lighter_gray">#ddd</color>
 
     <color name="border_color">#cccccc</color>
     <color name="purple">#931d78</color>
@@ -27,6 +26,8 @@
     <color name="core_red_light">#fffff5f5</color>
     <color name="core_red_navy">#973E3E</color>
     <color name="core_red_crimson">#6E0000</color>
+    <color name="core_dark">#444444</color>
+    <color name="core_light">#ffd7d7d7</color>
 
 
 </resources>
