@@ -148,6 +148,13 @@
             <!--</exclusions>-->
         </dependency>
 
+        <!--Dependency for ORMLite-->
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-android</artifactId>
+            <version>4.46</version>
+        </dependency>
+
         <!--Android Annotations-->
         <dependency>
             <groupId>org.androidannotations</groupId>

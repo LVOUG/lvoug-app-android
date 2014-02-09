@@ -2,31 +2,43 @@ package lv.oug.android.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.j256.ormlite.field.DatabaseField;
 
 import java.util.Date;
 
 public class Event implements Parcelable {
 
+    @DatabaseField
     private long id;
 
+    @DatabaseField
     private String logo;
 
+    @DatabaseField
     private String title;
 
+    @DatabaseField
     private String description;
 
+    @DatabaseField
     private String address;
 
+    @DatabaseField
     private double addressLatitude;
 
+    @DatabaseField
     private double addressLongitude;
 
+    @DatabaseField
     private String eventPage;
 
+    @DatabaseField
     private Date eventDate;
 
+    @DatabaseField
     private Date createdAt;
 
+    @DatabaseField
     private Date updatedAt;
 
     private Event(Parcel in) {
