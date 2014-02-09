@@ -41,6 +41,9 @@ public class Event implements Parcelable {
     @DatabaseField
     private Date updatedAt;
 
+    public Event() {
+    }
+
     private Event(Parcel in) {
         id = in.readLong();
         logo = in.readString();
@@ -55,7 +58,7 @@ public class Event implements Parcelable {
         updatedAt = new Date(in.readLong());
     }
 
-	@Override
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -76,10 +79,12 @@ public class Event implements Parcelable {
     }
 
     public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
         public Event createFromParcel(Parcel in) {
             return new Event(in);
         }
 
+        @Override
         public Event[] newArray(int size) {
             return new Event[size];
         }

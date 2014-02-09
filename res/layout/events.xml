@@ -6,6 +6,12 @@
               android:background="@color/core_light"
               android:layout_weight="1">
 
-    <include layout="@layout/row_event_entity"/>
+    <ListView
+            android:id="@+id/list_events"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            />
 
 </LinearLayout>
