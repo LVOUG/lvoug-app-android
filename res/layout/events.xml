@@ -3,8 +3,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="@color/screen_background_light"
+              android:background="@color/core_light"
               android:layout_weight="1">
+
     <include layout="@layout/row_event_entity"/>
 
 </LinearLayout>
