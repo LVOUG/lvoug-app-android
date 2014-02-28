@@ -3,6 +3,7 @@ package lv.oug.android.integration.webservice;
 import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lv.oug.android.domain.EventRepository;
 import lv.oug.android.infrastructure.common.ClassLogger;
 import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
@@ -28,21 +29,15 @@ public class WebServiceIntegration {
     ClassLogger logger = new ClassLogger(WebServiceIntegration.class);
 
     @Inject
-    public WebServiceIntegration() {}
+    EventRepository eventRepository;
 
-    public EventsWrapperJSON loadEventsWrapper() throws Exception {
-        AsyncTask<Void, Void, EventsWrapperJSON> asyncTask = new AsyncTask<Void, Void, EventsWrapperJSON>() {
-            @Override
-            protected EventsWrapperJSON doInBackground(Void... params) {
-                InputStream source = retrieveStream(WEBSERVICE_API_EVENTS);
+    public EventsWrapperJSON loadEventsWrapper() {
+        InputStream source = retrieveStream(WEBSERVICE_API_EVENTS);
 
-                Gson gson = createGson();
-                Reader reader = new InputStreamReader(source);
+        Gson gson = createGson();
+        Reader reader = new InputStreamReader(source);
 
-                return gson.fromJson(reader, EventsWrapperJSON.class);
-            }
-        }.execute();
-        return asyncTask.get();
+        return gson.fromJson(reader, EventsWrapperJSON.class);
     }
 
     public ArticleWrapperJSON loadArticleWrapper() throws Exception {

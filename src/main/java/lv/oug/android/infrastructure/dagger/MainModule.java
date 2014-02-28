@@ -4,6 +4,7 @@ import android.content.Context;
 import com.squareup.otto.Bus;
 import dagger.Module;
 import dagger.Provides;
+import lv.oug.android.application.EventsApplicationService;
 import lv.oug.android.presentation.BaseApplication;
 import lv.oug.android.presentation.MainActivity;
 import lv.oug.android.presentation.about.AboutFragment;
@@ -20,7 +21,9 @@ import javax.inject.Singleton;
                 HomeFragment.class,
                 PastEventsFragment.class,
                 NewsFragment.class,
-                AboutFragment.class
+                AboutFragment.class,
+
+                EventsApplicationService.class
         }
 )
 public class MainModule implements DaggerModule {

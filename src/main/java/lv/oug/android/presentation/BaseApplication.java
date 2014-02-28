@@ -2,6 +2,7 @@ package lv.oug.android.presentation;
 
 import android.app.Application;
 import dagger.ObjectGraph;
+import lv.oug.android.application.EventsApplicationService;
 import lv.oug.android.infrastructure.dagger.DaggerModule;
 import lv.oug.android.infrastructure.dagger.MainModule;
 
@@ -12,10 +13,14 @@ public class BaseApplication extends Application {
 
     private static ObjectGraph objectGraph;
 
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
         DaggerModule[] modules = getModules();
         objectGraph = ObjectGraph.create(modules);
+
+        EventsApplicationService eventsApplicationService = objectGraph.get(EventsApplicationService.class);
+        eventsApplicationService.loadAndSaveEvents();
     }
 
     public static <T> void inject(T instance) {

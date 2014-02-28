@@ -50,10 +50,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-     public Dao<Event, Integer> getEventDao() throws SQLException {
+    public Dao<Event, Integer> getEventDao() throws SQLException {
         if (eventDao == null) {
             eventDao = getDao(Event.class);
         }
         return eventDao;
-     }
+    }
 }
