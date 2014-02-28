@@ -1,6 +1,7 @@
 package lv.oug.android.infrastructure.dagger;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import com.squareup.otto.Bus;
 import dagger.Module;
 import dagger.Provides;
@@ -42,5 +43,10 @@ public class MainModule implements DaggerModule {
     @Provides
     Context provideContext() {
         return appContext;
+    }
+
+    @Provides
+    LayoutInflater provideLayoutInflater() {
+        return LayoutInflater.from(appContext);
     }
 }

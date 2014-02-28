@@ -1,6 +1,8 @@
 package lv.oug.android.domain;
 
 import android.content.Context;
+import com.j256.ormlite.android.AndroidDatabaseResults;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import lv.oug.android.infrastructure.common.ClassLogger;
@@ -40,18 +42,10 @@ public class EventRepository {
     public void saveEvents(List<Event> list) {
         try {
             for (Event event : list) {
-                db.getEventDao().create(event);
+                getEventDao().create(event);
             }
         } catch (SQLException e) {
             logger.e(e.getLocalizedMessage());
-        }
-    }
-
-    public List<Event> loadEvents() {
-        try {
-            return db.getEventDao().queryForAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -59,6 +53,18 @@ public class EventRepository {
         try {
             ConnectionSource source = db.getConnectionSource();
             TableUtils.clearTable(source, Event.class);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Dao<Event, Integer> getEventDao() throws SQLException {
+        return db.getEventDao();
+    }
+
+    public AndroidDatabaseResults getRawResults() {
+        try {
+            return (AndroidDatabaseResults) getEventDao().iterator().getRawResults();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
