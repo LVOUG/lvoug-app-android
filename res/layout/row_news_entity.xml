@@ -3,10 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/border_right"
+        android:background="@color/screen_background_light"
         >
 
     <LinearLayout android:layout_weight="1"

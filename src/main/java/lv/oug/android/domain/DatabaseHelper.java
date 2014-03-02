@@ -17,9 +17,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "lvoug.db";
     private static final int DATABASE_VERSION = 1;
-	private static final int NOT_MAPPED = -1;
+    private static final int NOT_MAPPED = -1;
 
     private Dao<Event, Integer> eventDao;
+    private Dao<Article, Integer> articleDao;
 
     @Inject
     public DatabaseHelper(Context context) {
@@ -31,6 +32,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             logger.i("onCreate");
             TableUtils.createTable(connectionSource, Event.class);
+            TableUtils.createTable(connectionSource, Article.class);
 
         } catch (SQLException e) {
             logger.e("Can't create database", e);
@@ -43,6 +45,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             logger.i("onUpgrade");
             TableUtils.dropTable(connectionSource, Event.class, true);
+            TableUtils.dropTable(connectionSource, Article.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             logger.e("Can't drop databases", e);
@@ -55,5 +58,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             eventDao = getDao(Event.class);
         }
         return eventDao;
+    }
+
+    public Dao<Article, Integer> getArticleDao() throws SQLException {
+        if (articleDao == null) {
+            articleDao = getDao(Article.class);
+        }
+        return articleDao;
     }
 }
