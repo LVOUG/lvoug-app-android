@@ -23,13 +23,13 @@ public class ArticleRepository {
     @Inject
     DatabaseHelper db;
 
-    public void save(List<Article> list) {
+    public void saveOrUpdate(List<Article> list) {
         try {
             for (Article article : list) {
-                db.getArticleDao().create(article);
+                db.getArticleDao().createOrUpdate(article);
             }
         } catch (SQLException e) {
-            logger.e(e.getLocalizedMessage());
+            throw new RuntimeException(e);
         }
     }
 

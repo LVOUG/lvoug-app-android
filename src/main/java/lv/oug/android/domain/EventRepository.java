@@ -23,29 +23,13 @@ public class EventRepository {
     @Inject
     DatabaseHelper db;
 
-    @Deprecated
-    public List<Event> loadByRoom(int id) {
-//        try {
-//            Dao<Event, Integer> dao = db.getEventDao();
-//            QueryBuilder<Event, Integer> builder = dao.queryBuilder();
-//            builder.where().eq(Event.ROOM_ID_ID, id);
-//            PreparedQuery<Event> preparedQuery = builder.prepare();
-//
-//            return dao.query(preparedQuery);
-//        } catch (SQLException e){
-//            logger.e(e.getLocalizedMessage());
-//        }
-
-        return null;
-    }
-
-    public void saveEvents(List<Event> list) {
+    public void saveOrUpdate(List<Event> list) {
         try {
             for (Event event : list) {
-                getEventDao().create(event);
+                getEventDao().createOrUpdate(event);
             }
         } catch (SQLException e) {
-            logger.e(e.getLocalizedMessage());
+            throw new RuntimeException(e);
         }
     }
 

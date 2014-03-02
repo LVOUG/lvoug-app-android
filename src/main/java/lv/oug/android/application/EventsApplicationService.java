@@ -10,10 +10,13 @@ import lv.oug.android.infrastructure.common.ClassLogger;
 import lv.oug.android.infrastructure.common.NetworkService;
 import lv.oug.android.infrastructure.common.SharedPreferenceService;
 import lv.oug.android.integration.webservice.WebServiceIntegration;
+import lv.oug.android.integration.webservice.articles.ArticleJSON;
 import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
+import lv.oug.android.integration.webservice.events.EventJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 import static lv.oug.android.domain.ArticleRepository.ARTICLES_TIMESTAMP;
@@ -47,18 +50,17 @@ public class EventsApplicationService {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    EventsWrapperJSON json = webService.loadEventsWrapper();
+                    Date now = new Date();
+                    Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(EVENTS_TIMESTAMP));
 
-                    Long lastUpdatedServer = json.getTimestamp();
-                    Long lasUpdatedClient = sharedPreference.loadPreferenceLong(EVENTS_TIMESTAMP);
-                    if (lastUpdatedServer > lasUpdatedClient) {
-                        List<Event> events = beanMapper.mapEvents(json.getEvents());
-
-                        eventRepository.clearEvents();
-                        eventRepository.saveEvents(events);
-                        sharedPreference.savePreference(EVENTS_TIMESTAMP, lastUpdatedServer);
-                        logger.d("Updated " + EVENTS_TIMESTAMP);
+                    EventsWrapperJSON json = webService.loadEventsWrapper(lastUpdated);
+                    List<EventJSON> jsonEvents = json.getEvents();
+                    if(jsonEvents != null) {
+                        List<Event> events = beanMapper.mapEvents(jsonEvents);
+                        eventRepository.saveOrUpdate(events);
+                        logger.d("Received  " + jsonEvents.size() + " events from server");
                     }
+                    sharedPreference.savePreference(EVENTS_TIMESTAMP, now.getTime());
                     return null;
                 }
             }.execute();
@@ -73,18 +75,17 @@ public class EventsApplicationService {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    ArticleWrapperJSON json = webService.loadArticleWrapper();
+                    Date now = new Date();
+                    Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(ARTICLES_TIMESTAMP));
 
-                    Long lastUpdatedServer = json.getTimestamp();
-                    Long lasUpdatedClient = sharedPreference.loadPreferenceLong(ARTICLES_TIMESTAMP);
-                    if (lastUpdatedServer > lasUpdatedClient) {
-                        List<Article> events = beanMapper.mapArticles(json.getArticles());
-
-                        articleRepository.clear();
-                        articleRepository.save(events);
-                        sharedPreference.savePreference(ARTICLES_TIMESTAMP, lastUpdatedServer);
-                        logger.d("Updated " + ARTICLES_TIMESTAMP);
+                    ArticleWrapperJSON json = webService.loadArticleWrapper(lastUpdated);
+                    List<ArticleJSON> jsonArticles = json.getArticles();
+                    if(jsonArticles != null) {
+                        List<Article> articles = beanMapper.mapArticles(jsonArticles);
+                        articleRepository.saveOrUpdate(articles);
+                        logger.d("Received  " + articles.size() + " articles from server");
                     }
+                    sharedPreference.savePreference(ARTICLES_TIMESTAMP, now.getTime());
                     return null;
                 }
             }.execute();

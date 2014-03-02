@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Event implements Parcelable {
 
-    @DatabaseField
+    @DatabaseField(id = true)
     private long id;
 
     @DatabaseField

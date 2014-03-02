@@ -24,6 +24,7 @@ public class BeanMapper {
 
     private Event map(EventJSON eventJSON) {
         Event event = new Event();
+        event.setId(eventJSON.getId());
         event.setTitle(eventJSON.getTitle());
         event.setDescription(eventJSON.getDescription());
         event.setAddress(eventJSON.getAddress());
@@ -44,12 +45,13 @@ public class BeanMapper {
         return result;
     }
 
-    private Article map(ArticleJSON eventJSON) {
+    private Article map(ArticleJSON articleJSON) {
         Article article = new Article();
-        article.setTitle(eventJSON.getTitle());
-        article.setDescription(eventJSON.getDescription());
-        article.setCreatedAt(eventJSON.getCreatedAt());
-        article.setUpdatedAt(eventJSON.getUpdatedAt());
+        article.setId(articleJSON.getId());
+        article.setTitle(articleJSON.getTitle());
+        article.setDescription(articleJSON.getDescription());
+        article.setCreatedAt(articleJSON.getCreatedAt());
+        article.setUpdatedAt(articleJSON.getUpdatedAt());
         return article;
     }
 }

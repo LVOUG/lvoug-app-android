@@ -2,8 +2,8 @@ package lv.oug.android.integration.webservice;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lv.oug.android.domain.EventRepository;
 import lv.oug.android.infrastructure.common.ClassLogger;
+import lv.oug.android.infrastructure.common.DateService;
 import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
 import org.apache.http.HttpEntity;
@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URLEncoder;
+import java.util.Date;
 
 public class WebServiceIntegration {
 
@@ -28,33 +30,45 @@ public class WebServiceIntegration {
     ClassLogger logger = new ClassLogger(WebServiceIntegration.class);
 
     @Inject
-    EventRepository eventRepository;
+    DateService dateService;
 
-    public EventsWrapperJSON loadEventsWrapper() {
-        InputStream source = retrieveStream(WEBSERVICE_API_EVENTS);
+    public EventsWrapperJSON loadEventsWrapper(Date lastUpdated) {
+        try {
+            String date = dateService.format(lastUpdated, DATE_FORMAT);
+            String encodedDate = URLEncoder.encode(date, "UTF_8");
+            String url = WEBSERVICE_API_EVENTS + "?from=" + encodedDate;
+            InputStream source = retrieveStream(url);
 
-        Gson gson = createGson();
-        Reader reader = new InputStreamReader(source);
+            Gson gson = createGson();
+            Reader reader = new InputStreamReader(source);
 
-        return gson.fromJson(reader, EventsWrapperJSON.class);
+            return gson.fromJson(reader, EventsWrapperJSON.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public ArticleWrapperJSON loadArticleWrapper() {
-        InputStream source = retrieveStream(WEBSERVICE_API_ARTICLES);
+    public ArticleWrapperJSON loadArticleWrapper(Date lastUpdated) {
+        try {
+            String date = dateService.format(lastUpdated, DATE_FORMAT);
+            String encodedDate = URLEncoder.encode(date, "UTF_8");
+            String url = WEBSERVICE_API_ARTICLES + "?from=" + encodedDate;
+            InputStream source = retrieveStream(url);
 
-        Gson gson = createGson();
-        Reader reader = new InputStreamReader(source);
+            Gson gson = createGson();
+            Reader reader = new InputStreamReader(source);
 
-        return gson.fromJson(reader, ArticleWrapperJSON.class);
+            return gson.fromJson(reader, ArticleWrapperJSON.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private InputStream retrieveStream(String url) {
-
         DefaultHttpClient client = new DefaultHttpClient();
         HttpGet getRequest = new HttpGet(url);
 
         try {
-
             HttpResponse getResponse = client.execute(getRequest);
             final int statusCode = getResponse.getStatusLine().getStatusCode();
 
@@ -65,14 +79,10 @@ public class WebServiceIntegration {
 
             HttpEntity getResponseEntity = getResponse.getEntity();
             return getResponseEntity.getContent();
-
         } catch (IOException e) {
             getRequest.abort();
-            logger.w("Error for URL " + url, e);
+            throw new RuntimeException(e);
         }
-
-        return null;
-
     }
 
     private Gson createGson() {
