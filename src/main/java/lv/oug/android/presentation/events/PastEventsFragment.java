@@ -11,11 +11,11 @@ import lv.oug.android.presentation.BaseFragment;
 import javax.inject.Inject;
 import java.util.List;
 
+
 public class PastEventsFragment extends BaseFragment {
 
     @Inject
     EventRepository eventsRepository;
-
     @InjectView(R.id.list_events)
     ListView listEvents;
 
