@@ -41,8 +41,7 @@ public class Event implements Parcelable {
     @DatabaseField
     private Date updatedAt;
 
-    public Event() {
-    }
+    public Event() {}
 
     private Event(Parcel in) {
         id = in.readLong();

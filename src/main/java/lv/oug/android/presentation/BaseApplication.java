@@ -21,6 +21,7 @@ public class BaseApplication extends Application {
 
         EventsApplicationService eventsApplicationService = objectGraph.get(EventsApplicationService.class);
         eventsApplicationService.loadAndSaveEvents();
+        eventsApplicationService.loadAndSaveArticles();
     }
 
     public static <T> void inject(T instance) {

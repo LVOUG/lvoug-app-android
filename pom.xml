@@ -154,19 +154,6 @@
             <artifactId>ormlite-android</artifactId>
             <version>4.46</version>
         </dependency>
-
-        <!--Android Annotations-->
-        <dependency>
-            <groupId>org.androidannotations</groupId>
-            <artifactId>androidannotations</artifactId>
-            <version>3.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.androidannotations</groupId>
-            <artifactId>androidannotations-api</artifactId>
-            <version>3.0.1</version>
-        </dependency>
     </dependencies>
 
     <build>

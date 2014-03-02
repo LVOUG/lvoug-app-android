@@ -16,4 +16,8 @@ public class ArticleWrapperJSON {
     public void setArticles(List<ArticleJSON> articles) {
         this.articles = articles;
     }
+
+    public Long getTimestamp() {
+        return 1000L;
+    }
 }

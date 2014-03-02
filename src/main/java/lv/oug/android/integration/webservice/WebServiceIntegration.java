@@ -1,6 +1,5 @@
 package lv.oug.android.integration.webservice;
 
-import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lv.oug.android.domain.EventRepository;
@@ -40,19 +39,13 @@ public class WebServiceIntegration {
         return gson.fromJson(reader, EventsWrapperJSON.class);
     }
 
-    public ArticleWrapperJSON loadArticleWrapper() throws Exception {
-        AsyncTask<Void, Void, ArticleWrapperJSON> asyncTask = new AsyncTask<Void, Void, ArticleWrapperJSON>() {
-            @Override
-            protected ArticleWrapperJSON doInBackground(Void... params) {
-                InputStream source = retrieveStream(WEBSERVICE_API_ARTICLES);
+    public ArticleWrapperJSON loadArticleWrapper() {
+        InputStream source = retrieveStream(WEBSERVICE_API_ARTICLES);
 
-                Gson gson = createGson();
-                Reader reader = new InputStreamReader(source);
+        Gson gson = createGson();
+        Reader reader = new InputStreamReader(source);
 
-                return gson.fromJson(reader, ArticleWrapperJSON.class);
-            }
-        }.execute();
-        return asyncTask.get();
+        return gson.fromJson(reader, ArticleWrapperJSON.class);
     }
 
     private InputStream retrieveStream(String url) {

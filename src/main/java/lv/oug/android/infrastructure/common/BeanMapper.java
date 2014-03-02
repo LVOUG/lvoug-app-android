@@ -1,6 +1,8 @@
 package lv.oug.android.infrastructure.common;
 
+import lv.oug.android.domain.Article;
 import lv.oug.android.domain.Event;
+import lv.oug.android.integration.webservice.articles.ArticleJSON;
 import lv.oug.android.integration.webservice.events.EventJSON;
 
 import javax.inject.Inject;
@@ -12,12 +14,12 @@ public class BeanMapper {
     @Inject
     public BeanMapper() {}
 
-    public List<Event> map(List<EventJSON>  json) {
-        List<Event> events = new ArrayList<Event>();
-        for (EventJSON eventJSON : json) {
-            events.add(map(eventJSON));
+    public List<Event> mapEvents(List<EventJSON> json) {
+        List<Event> result = new ArrayList<Event>();
+        for (EventJSON jsonItem : json) {
+            result.add(map(jsonItem));
         }
-        return events;
+        return result;
     }
 
     private Event map(EventJSON eventJSON) {
@@ -34,4 +36,20 @@ public class BeanMapper {
         return event;
     }
 
+    public List<Article> mapArticles(List<ArticleJSON> json) {
+        List<Article> result = new ArrayList<Article>();
+        for (ArticleJSON jsonItem : json) {
+            result.add(map(jsonItem));
+        }
+        return result;
+    }
+
+    private Article map(ArticleJSON eventJSON) {
+        Article article = new Article();
+        article.setTitle(eventJSON.getTitle());
+        article.setDescription(eventJSON.getDescription());
+        article.setCreatedAt(eventJSON.getCreatedAt());
+        article.setUpdatedAt(eventJSON.getUpdatedAt());
+        return article;
+    }
 }

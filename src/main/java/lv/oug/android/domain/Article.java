@@ -23,8 +23,7 @@ public class Article implements Parcelable {
     @DatabaseField
     private Date updatedAt;
 
-    public Article() {
-    }
+    public Article() {}
 
     private Article(Parcel in) {
         id = in.readLong();
