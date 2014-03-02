@@ -34,7 +34,7 @@ public class ArticleListAdapter extends ArrayAdapter<Article> {
         ArticleHolder holder;
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(R.layout.row_event_entity, null, true);
+            row = inflater.inflate(R.layout.row_news_entity, null, true);
 
             holder = new ArticleHolder();
             holder.articleTitle = (TextView) row.findViewById(R.id.news_title);
