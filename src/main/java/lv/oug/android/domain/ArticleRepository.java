@@ -3,6 +3,8 @@ package lv.oug.android.domain;
 import android.content.Context;
 import com.j256.ormlite.android.AndroidDatabaseResults;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import lv.oug.android.infrastructure.common.ClassLogger;
@@ -56,7 +58,10 @@ public class ArticleRepository {
 
     public AndroidDatabaseResults getRawResults() {
         try {
-            return (AndroidDatabaseResults) getArticleDao().iterator().getRawResults();
+            QueryBuilder<Article, Integer> queryBuilder = getArticleDao().queryBuilder();
+            queryBuilder.orderBy("createdAt", false);
+            PreparedQuery<Article> query = queryBuilder.prepare();
+            return (AndroidDatabaseResults) getArticleDao().iterator(query).getRawResults();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
