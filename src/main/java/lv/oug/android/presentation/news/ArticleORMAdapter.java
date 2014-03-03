@@ -75,6 +75,12 @@ public class ArticleORMAdapter extends BaseAdapter {
         return row;
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        dbResults = repository.getRawResults();
+    }
+
     private void update(ArticleHolder holder, Article a) {
         holder.articleTitle.setText(a.getTitle());
 

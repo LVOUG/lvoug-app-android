@@ -1,5 +1,7 @@
 package lv.oug.android.application;
 
+import android.app.IntentService;
+import android.content.Intent;
 import android.os.AsyncTask;
 import lv.oug.android.domain.Article;
 import lv.oug.android.domain.ArticleRepository;
@@ -14,6 +16,7 @@ import lv.oug.android.integration.webservice.articles.ArticleJSON;
 import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
 import lv.oug.android.integration.webservice.events.EventJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
+import lv.oug.android.presentation.BaseApplication;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -22,9 +25,9 @@ import java.util.List;
 import static lv.oug.android.domain.ArticleRepository.ARTICLES_TIMESTAMP;
 import static lv.oug.android.domain.EventRepository.EVENTS_TIMESTAMP;
 
-public class EventsApplicationService {
+public class ServerPullService extends IntentService {
 
-    ClassLogger logger = new ClassLogger(EventsApplicationService.class);
+    private static final ClassLogger logger = new ClassLogger(ServerPullService.class);
 
     @Inject
     BeanMapper beanMapper;
@@ -43,6 +46,17 @@ public class EventsApplicationService {
 
     @Inject
     SharedPreferenceService sharedPreference;
+
+    public ServerPullService() {
+        super("ServerPullService");
+        BaseApplication.inject(this);
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        loadAndSaveEvents();
+        loadAndSaveArticles();
+    }
 
     public void loadAndSaveEvents() {
         try {

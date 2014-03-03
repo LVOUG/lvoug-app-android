@@ -16,6 +16,7 @@ import butterknife.InjectView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.squareup.otto.Bus;
 import lv.oug.android.R;
+import lv.oug.android.application.ServerPullService;
 import lv.oug.android.infrastructure.common.StringService;
 import lv.oug.android.presentation.about.AboutFragment;
 import lv.oug.android.presentation.events.PastEventsFragment;
@@ -173,6 +174,11 @@ public class MainActivity extends SherlockFragmentActivity {
             }
 
         }
+    }
+
+    public void refreshFromServer() {
+        Intent updateEvents = new Intent(this, ServerPullService.class);
+        startService(updateEvents);
     }
 
     public void changeFragment(Fragment fragment) {

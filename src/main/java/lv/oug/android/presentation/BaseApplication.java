@@ -1,8 +1,9 @@
 package lv.oug.android.presentation;
 
 import android.app.Application;
+import android.content.Intent;
 import dagger.ObjectGraph;
-import lv.oug.android.application.EventsApplicationService;
+import lv.oug.android.application.ServerPullService;
 import lv.oug.android.infrastructure.dagger.DaggerModule;
 import lv.oug.android.infrastructure.dagger.MainModule;
 
@@ -19,9 +20,8 @@ public class BaseApplication extends Application {
         DaggerModule[] modules = getModules();
         objectGraph = ObjectGraph.create(modules);
 
-        EventsApplicationService eventsApplicationService = objectGraph.get(EventsApplicationService.class);
-        eventsApplicationService.loadAndSaveEvents();
-        eventsApplicationService.loadAndSaveArticles();
+        Intent updateEvents = new Intent(this, ServerPullService.class);
+        startService(updateEvents);
     }
 
     public static <T> void inject(T instance) {

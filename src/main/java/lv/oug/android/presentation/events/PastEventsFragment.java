@@ -1,18 +1,18 @@
 package lv.oug.android.presentation.events;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.ListView;
 import butterknife.InjectView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import lv.oug.android.R;
-import lv.oug.android.domain.Event;
 import lv.oug.android.domain.EventRepository;
 import lv.oug.android.presentation.BaseFragment;
 
 import javax.inject.Inject;
-import java.util.List;
 
 
-public class PastEventsFragment extends BaseFragment {
+public class PastEventsFragment extends BaseFragment implements PullToRefreshListView.OnRefreshListener {
 
     @Inject
     EventRepository eventsRepository;
@@ -21,7 +21,7 @@ public class PastEventsFragment extends BaseFragment {
     EventsORMAdapter adapter;
 
     @InjectView(R.id.list_events)
-    ListView listEvents;
+    PullToRefreshListView listEvents;
 
     @Override
     protected int contentViewId() {
@@ -31,5 +31,29 @@ public class PastEventsFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         listEvents.setAdapter(adapter);
+        listEvents.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh(PullToRefreshBase refreshView) {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                getMainActivity().refreshFromServer();
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                listEvents.onRefreshComplete();
+                adapter.notifyDataSetChanged();
+            }
+        }.execute();
     }
 }

@@ -79,6 +79,11 @@ public class EventsORMAdapter extends BaseAdapter {
         return row;
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        dbResults = repository.getRawResults();
+    }
 
     private void update(EventHolder holder, Event e) {
         holder.eventTitle.setText(e.getTitle());
