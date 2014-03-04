@@ -6,47 +6,51 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         >
 
     <ImageView
             android:id="@+id/event_header_image"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:minHeight="70dp"
             android:scaleType="centerCrop"
+            />
+    <LinearLayout
+            android:layout_height="6px"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/drop_shadow"
             />
 
     <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="@drawable/border_no_top"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:layout_marginTop="5dp"
             >
+
         <TextView
                 android:id="@+id/event_title"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="@string/mock_title"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:textColor="@color/core_red_crimson"
+                android:textColor="@color/core_black"
                 android:textSize="14sp"
-                android:layout_marginBottom="2dp"/>
+                android:layout_marginBottom="3dp"/>
 
         <TextView
                 android:id="@+id/event_description"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="@string/mock_description"
-                android:textColor="@color/core_red_navy"
+                android:textColor="@color/core_black"
                 android:textSize="12sp"
                 android:maxLines="3"
                 android:ellipsize="end"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="10dp"/>
 
         <LinearLayout
                 android:id="@+id/event_date_block"
@@ -56,7 +60,7 @@
                 >
             <ImageView android:layout_width="15dp"
                        android:layout_height="match_parent"
-                       android:src="@drawable/ico_events"
+                       android:src="@drawable/calendar"
                        android:layout_marginRight="5dp"
                     />
             <TextView
@@ -64,11 +68,15 @@
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="05/02/2014"
-                    android:textStyle="bold"
-                    android:textColor="@color/core_red_navy"
+                    android:text="Tue, 05 Feb 2013"
+                    android:textColor="@color/core_disabled"
                     android:textSize="12sp"
                     />
         </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="1px"
+                      android:background="@drawable/events_divider"/>
     </LinearLayout>
 </LinearLayout>

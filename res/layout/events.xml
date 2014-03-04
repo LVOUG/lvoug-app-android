@@ -3,8 +3,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="@color/core_light"
+              android:background="@drawable/pattern"
               android:layout_weight="1">
+
+    <LinearLayout
+            android:layout_height="6px"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/drop_shadow"
+            />
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/list_events"

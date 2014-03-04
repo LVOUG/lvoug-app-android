@@ -7,7 +7,6 @@
     <color name="purple">#931d78</color>
     <color name="dark_grey">#808080</color>
     <color name="lighted_black">#ff5b5b5b</color>
-    <color name="almost_black">#ff2e2e2e</color>
     <color name="green">#90be17</color>
     <color name="orange_mark">#e17425</color>
     <color name="green_mark">#9dcd17</color>
@@ -28,6 +27,8 @@
     <color name="core_red_crimson">#6E0000</color>
     <color name="core_dark">#444444</color>
     <color name="core_light">#ffd7d7d7</color>
+    <color name="core_black">#ff282828</color>
+    <color name="core_disabled">#ff999999</color>
 
 
 </resources>

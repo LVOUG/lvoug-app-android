@@ -24,6 +24,6 @@
               android:gravity="center_vertical"
               android:paddingLeft="16dp"
               android:paddingRight="16dp"
-              android:textColor="@color/almost_black"/>
+              android:textColor="@color/core_black"/>
 
 </LinearLayout>
