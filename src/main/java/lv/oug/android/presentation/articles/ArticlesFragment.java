@@ -1,19 +1,25 @@
-package lv.oug.android.presentation.news;
+package lv.oug.android.presentation.articles;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ListView;
 import butterknife.InjectView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import lv.oug.android.R;
+import lv.oug.android.application.ServerPullService;
 import lv.oug.android.presentation.BaseFragment;
 
 import javax.inject.Inject;
 
-public class NewsFragment extends BaseFragment implements PullToRefreshListView.OnRefreshListener {
+public class ArticlesFragment extends BaseFragment implements PullToRefreshListView.OnRefreshListener<ListView> {
 
     @Inject
     ArticleORMAdapter adapter;
+
+    @Inject
+    ServerPullService serverPullService;
 
     @InjectView(R.id.list_articles)
     PullToRefreshListView listArticles;
@@ -27,6 +33,9 @@ public class NewsFragment extends BaseFragment implements PullToRefreshListView.
     protected void init(Bundle savedInstanceState) {
         listArticles.setAdapter(adapter);
         listArticles.setOnRefreshListener(this);
+
+        listArticles.setRefreshing();
+        onRefresh(null);
     }
 
     @Override
@@ -35,12 +44,7 @@ public class NewsFragment extends BaseFragment implements PullToRefreshListView.
 
             @Override
             protected Void doInBackground(Void... params) {
-                getMainActivity().refreshFromServer();
-                try {
-                    Thread.sleep(1000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                serverPullService.loadAndSaveArticles();
                 return null;
             }
 
@@ -50,6 +54,11 @@ public class NewsFragment extends BaseFragment implements PullToRefreshListView.
                 adapter.notifyDataSetChanged();
             }
         }.execute();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        listArticles.onRefreshComplete();
     }
 }

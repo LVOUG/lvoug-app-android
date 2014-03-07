@@ -1,24 +1,30 @@
 package lv.oug.android.presentation.events;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ListView;
 import butterknife.InjectView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import lv.oug.android.R;
+import lv.oug.android.application.ServerPullService;
 import lv.oug.android.domain.EventRepository;
 import lv.oug.android.presentation.BaseFragment;
 
 import javax.inject.Inject;
 
 
-public class PastEventsFragment extends BaseFragment implements PullToRefreshListView.OnRefreshListener {
+public class EventsFragment extends BaseFragment implements PullToRefreshListView.OnRefreshListener<ListView> {
 
     @Inject
     EventRepository eventsRepository;
 
     @Inject
     EventsORMAdapter adapter;
+
+    @Inject
+    ServerPullService serverPullService;
 
     @InjectView(R.id.list_events)
     PullToRefreshListView listEvents;
@@ -32,6 +38,9 @@ public class PastEventsFragment extends BaseFragment implements PullToRefreshLis
     protected void init(Bundle savedInstanceState) {
         listEvents.setAdapter(adapter);
         listEvents.setOnRefreshListener(this);
+
+        listEvents.setRefreshing();
+        onRefresh(null);
     }
 
     @Override
@@ -40,12 +49,7 @@ public class PastEventsFragment extends BaseFragment implements PullToRefreshLis
 
             @Override
             protected Void doInBackground(Void... params) {
-                getMainActivity().refreshFromServer();
-                try {
-                    Thread.sleep(1000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                serverPullService.loadAndSaveEvents();
                 return null;
             }
 
@@ -55,5 +59,11 @@ public class PastEventsFragment extends BaseFragment implements PullToRefreshLis
                 adapter.notifyDataSetChanged();
             }
         }.execute();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listEvents.onRefreshComplete();
     }
 }

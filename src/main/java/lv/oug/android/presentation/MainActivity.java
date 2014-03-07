@@ -16,14 +16,13 @@ import butterknife.InjectView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.squareup.otto.Bus;
 import lv.oug.android.R;
-import lv.oug.android.application.ServerPullService;
 import lv.oug.android.infrastructure.common.StringService;
 import lv.oug.android.presentation.about.AboutFragment;
-import lv.oug.android.presentation.events.PastEventsFragment;
+import lv.oug.android.presentation.articles.ArticlesFragment;
+import lv.oug.android.presentation.events.EventsFragment;
 import lv.oug.android.presentation.home.HomeFragment;
 import lv.oug.android.presentation.navigation.NavigationDrawerAdapter;
 import lv.oug.android.presentation.navigation.NavigationItem;
-import lv.oug.android.presentation.news.NewsFragment;
 
 import javax.inject.Inject;
 
@@ -164,9 +163,9 @@ public class MainActivity extends SherlockFragmentActivity {
             if (navigationItem == NavigationItem.HOME) {
                 changeFragment(new HomeFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.NEWS) {
-                changeFragment(new NewsFragment(), selectedItem);
+                changeFragment(new ArticlesFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.PAST_EVENTS) {
-                changeFragment(new PastEventsFragment(), selectedItem);
+                changeFragment(new EventsFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.ABOUT) {
                 changeFragment(new AboutFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.TWITTER) {
@@ -174,11 +173,6 @@ public class MainActivity extends SherlockFragmentActivity {
             }
 
         }
-    }
-
-    public void refreshFromServer() {
-        Intent updateEvents = new Intent(this, ServerPullService.class);
-        startService(updateEvents);
     }
 
     public void changeFragment(Fragment fragment) {

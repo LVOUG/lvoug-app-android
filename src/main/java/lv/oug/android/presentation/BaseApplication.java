@@ -1,7 +1,7 @@
 package lv.oug.android.presentation;
 
 import android.app.Application;
-import android.content.Intent;
+import android.os.AsyncTask;
 import dagger.ObjectGraph;
 import lv.oug.android.application.ServerPullService;
 import lv.oug.android.infrastructure.dagger.DaggerModule;
@@ -20,8 +20,20 @@ public class BaseApplication extends Application {
         DaggerModule[] modules = getModules();
         objectGraph = ObjectGraph.create(modules);
 
-        Intent updateEvents = new Intent(this, ServerPullService.class);
-        startService(updateEvents);
+        startInBackground();
+    }
+
+    public void startInBackground() {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                ServerPullService serverPullService = objectGraph.get(ServerPullService.class);
+                serverPullService.loadAndSaveEvents();
+                serverPullService.loadAndSaveArticles();
+                return null;
+            }
+        };
     }
 
     public static <T> void inject(T instance) {

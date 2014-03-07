@@ -1,8 +1,5 @@
 package lv.oug.android.application;
 
-import android.app.IntentService;
-import android.content.Intent;
-import android.os.AsyncTask;
 import lv.oug.android.domain.Article;
 import lv.oug.android.domain.ArticleRepository;
 import lv.oug.android.domain.Event;
@@ -25,7 +22,7 @@ import java.util.List;
 import static lv.oug.android.domain.ArticleRepository.ARTICLES_TIMESTAMP;
 import static lv.oug.android.domain.EventRepository.EVENTS_TIMESTAMP;
 
-public class ServerPullService extends IntentService {
+public class ServerPullService {
 
     private static final ClassLogger logger = new ClassLogger(ServerPullService.class);
 
@@ -48,63 +45,44 @@ public class ServerPullService extends IntentService {
     SharedPreferenceService sharedPreference;
 
     public ServerPullService() {
-        super("ServerPullService");
         BaseApplication.inject(this);
-    }
-
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        loadAndSaveEvents();
-        loadAndSaveArticles();
     }
 
     public void loadAndSaveEvents() {
         try {
             if (!networkService.internetAvailable()) return;
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    Date now = new Date();
-                    Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(EVENTS_TIMESTAMP));
+            Date now = new Date();
+            Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(EVENTS_TIMESTAMP));
 
-                    EventsWrapperJSON json = webService.loadEventsWrapper(lastUpdated);
-                    List<EventJSON> jsonEvents = json.getEvents();
-                    if(jsonEvents != null) {
-                        List<Event> events = beanMapper.mapEvents(jsonEvents);
-                        eventRepository.saveOrUpdate(events);
-                        logger.d("Received  " + jsonEvents.size() + " events from server");
-                    }
-                    sharedPreference.savePreference(EVENTS_TIMESTAMP, now.getTime());
-                    return null;
-                }
-            }.execute();
+            EventsWrapperJSON json = webService.loadEventsWrapper(lastUpdated);
+            List<EventJSON> jsonEvents = json.getEvents();
+            if(jsonEvents != null) {
+                List<Event> events = beanMapper.mapEvents(jsonEvents);
+                eventRepository.saveOrUpdate(events);
+                logger.d("Received  " + jsonEvents.size() + " events from server");
+            }
+            sharedPreference.savePreference(EVENTS_TIMESTAMP, now.getTime());
         } catch (Exception e) {
-            logger.e("Exception", e);
+            throw new RuntimeException(e);
         }
     }
 
     public void loadAndSaveArticles() {
         try {
             if (!networkService.internetAvailable()) return;
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    Date now = new Date();
-                    Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(ARTICLES_TIMESTAMP));
+            Date now = new Date();
+            Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(ARTICLES_TIMESTAMP));
 
-                    ArticleWrapperJSON json = webService.loadArticleWrapper(lastUpdated);
-                    List<ArticleJSON> jsonArticles = json.getArticles();
-                    if(jsonArticles != null) {
-                        List<Article> articles = beanMapper.mapArticles(jsonArticles);
-                        articleRepository.saveOrUpdate(articles);
-                        logger.d("Received  " + articles.size() + " articles from server");
-                    }
-                    sharedPreference.savePreference(ARTICLES_TIMESTAMP, now.getTime());
-                    return null;
-                }
-            }.execute();
+            ArticleWrapperJSON json = webService.loadArticleWrapper(lastUpdated);
+            List<ArticleJSON> jsonArticles = json.getArticles();
+            if(jsonArticles != null) {
+                List<Article> articles = beanMapper.mapArticles(jsonArticles);
+                articleRepository.saveOrUpdate(articles);
+                logger.d("Received  " + articles.size() + " articles from server");
+            }
+            sharedPreference.savePreference(ARTICLES_TIMESTAMP, now.getTime());
         } catch (Exception e) {
-            logger.e("Exception", e);
+            throw new RuntimeException(e);
         }
     }
 }

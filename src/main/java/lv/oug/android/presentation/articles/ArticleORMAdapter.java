@@ -1,4 +1,4 @@
-package lv.oug.android.presentation.news;
+package lv.oug.android.presentation.articles;
 
 import android.view.LayoutInflater;
 import android.view.View;
