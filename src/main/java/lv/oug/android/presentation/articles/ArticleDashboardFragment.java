@@ -1,19 +1,24 @@
 package lv.oug.android.presentation.articles;
 
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import lv.oug.android.R;
 import lv.oug.android.application.ServerPullService;
+import lv.oug.android.domain.Article;
 import lv.oug.android.presentation.BaseFragment;
 
 import javax.inject.Inject;
 
-public class ArticlesFragment extends BaseFragment implements PullToRefreshListView.OnRefreshListener<ListView> {
+import static android.widget.AdapterView.*;
+import static com.handmark.pulltorefresh.library.PullToRefreshListView.*;
+
+public class ArticleDashboardFragment extends BaseFragment implements OnRefreshListener<ListView>, OnItemClickListener {
 
     @Inject
     ArticleORMAdapter adapter;
@@ -26,13 +31,14 @@ public class ArticlesFragment extends BaseFragment implements PullToRefreshListV
 
     @Override
     protected int contentViewId() {
-        return R.layout.news;
+        return R.layout.article_dashboard;
     }
 
     @Override
     protected void init(Bundle savedInstanceState) {
         listArticles.setAdapter(adapter);
         listArticles.setOnRefreshListener(this);
+        listArticles.setOnItemClickListener(this);
 
         listArticles.setRefreshing();
         onRefresh(null);
@@ -54,6 +60,19 @@ public class ArticlesFragment extends BaseFragment implements PullToRefreshListV
                 adapter.notifyDataSetChanged();
             }
         }.execute();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Article article = adapter.getItem(position);
+
+        Bundle data = new Bundle();
+        data.putParcelable("dsd", article);
+
+        ArticleDetailsFragment fragment = new ArticleDetailsFragment();
+        fragment.setArguments(data);
+
+        getMainActivity().changeFragment(fragment);
     }
 
     @Override

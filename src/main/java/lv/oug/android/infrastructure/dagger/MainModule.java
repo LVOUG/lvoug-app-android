@@ -9,8 +9,10 @@ import lv.oug.android.application.ServerPullService;
 import lv.oug.android.presentation.BaseApplication;
 import lv.oug.android.presentation.MainActivity;
 import lv.oug.android.presentation.about.AboutFragment;
-import lv.oug.android.presentation.articles.ArticlesFragment;
-import lv.oug.android.presentation.events.EventsFragment;
+import lv.oug.android.presentation.articles.ArticleDashboardFragment;
+import lv.oug.android.presentation.articles.ArticleDetailsFragment;
+import lv.oug.android.presentation.events.EventDetailsFragment;
+import lv.oug.android.presentation.events.EventDashboardFragment;
 import lv.oug.android.presentation.home.HomeFragment;
 
 import javax.inject.Singleton;
@@ -20,8 +22,10 @@ import javax.inject.Singleton;
                 BaseApplication.class,
                 MainActivity.class,
                 HomeFragment.class,
-                EventsFragment.class,
-                ArticlesFragment.class,
+                EventDashboardFragment.class,
+                EventDetailsFragment.class,
+                ArticleDashboardFragment.class,
+                ArticleDetailsFragment.class,
                 AboutFragment.class,
 
                 ServerPullService.class
