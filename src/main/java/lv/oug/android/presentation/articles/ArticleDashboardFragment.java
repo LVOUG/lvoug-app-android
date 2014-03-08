@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import static android.widget.AdapterView.*;
 import static com.handmark.pulltorefresh.library.PullToRefreshListView.*;
+import static lv.oug.android.presentation.articles.ArticleDetailsFragment.ARTICLE_DETAILS_KEY;
 
 public class ArticleDashboardFragment extends BaseFragment implements OnRefreshListener<ListView>, OnItemClickListener {
 
@@ -67,7 +68,7 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
         Article article = adapter.getItem(position);
 
         Bundle data = new Bundle();
-        data.putParcelable("dsd", article);
+        data.putParcelable(ARTICLE_DETAILS_KEY, article);
 
         ArticleDetailsFragment fragment = new ArticleDetailsFragment();
         fragment.setArguments(data);

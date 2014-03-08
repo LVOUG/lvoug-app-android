@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import static android.widget.AdapterView.OnItemClickListener;
 import static com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import static lv.oug.android.presentation.events.EventDetailsFragment.EVENT_DETAILS_KEY;
 
 
 public class EventDashboardFragment extends BaseFragment implements OnRefreshListener<ListView>, OnItemClickListener {
@@ -74,7 +75,7 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
         Event event = adapter.getItem(position);
 
         Bundle data = new Bundle();
-        data.putParcelable("dsd", event);
+        data.putParcelable(EVENT_DETAILS_KEY, event);
 
         EventDetailsFragment fragment = new EventDetailsFragment();
         fragment.setArguments(data);
