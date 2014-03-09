@@ -1,8 +1,6 @@
 package lv.oug.android.presentation;
 
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -16,6 +14,7 @@ import butterknife.InjectView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.squareup.otto.Bus;
 import lv.oug.android.R;
+import lv.oug.android.application.SocialNetworkNavigation;
 import lv.oug.android.infrastructure.common.StringService;
 import lv.oug.android.presentation.about.AboutFragment;
 import lv.oug.android.presentation.articles.ArticleDashboardFragment;
@@ -28,8 +27,8 @@ import javax.inject.Inject;
 
 public class MainActivity extends SherlockFragmentActivity {
 
-    public static final String TWITTER_LVOUG_URL = "https://twitter.com/lvoug";
-
+    @Inject
+    SocialNetworkNavigation socialNetworkNavigation;
     @Inject
     Bus bus;
     @Inject
@@ -169,7 +168,7 @@ public class MainActivity extends SherlockFragmentActivity {
             } else if (navigationItem == NavigationItem.ABOUT) {
                 changeFragment(new AboutFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.TWITTER) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(TWITTER_LVOUG_URL)));
+                socialNetworkNavigation.goTwitter("lvoug");
             }
 
         }
