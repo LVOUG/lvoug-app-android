@@ -65,6 +65,7 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        position = position - 1; // hack to Pull to Refresh silly problem
         Article article = adapter.getItem(position);
 
         Bundle data = new Bundle();

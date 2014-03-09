@@ -72,6 +72,7 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        position = position - 1; // hack to Pull to Refresh silly problem
         Event event = adapter.getItem(position);
 
         Bundle data = new Bundle();
