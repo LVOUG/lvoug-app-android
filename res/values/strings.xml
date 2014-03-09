@@ -24,4 +24,12 @@
         себя дома, правда? Но здесь есть проблема — не всегда есть партнер для игры, а ведь самому поиграть никак
         нельзя.
     </string>
+
+
+    <string name="usergroup_about">Latvian Oracle User Group (LVOUG) is an independent organization that brings together
+        Oracle users, professionals and other interested people in Latvia. Its purpose is to promote the knowledge and
+        experience among the group members. Inform about the Oracle product enhancements and upgrades as well as provide
+        feedback to Oracle.\nAnyone can become a member of the group.
+    </string>
+    <string name="usergroup_title">Latvian Oracle User Group</string>
 </resources>

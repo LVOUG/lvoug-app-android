@@ -1,17 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/screen_background_light"
-              android:layout_weight="1">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/screen_background_light"
+            android:layout_weight="1">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+            >
+        <ImageView android:src="@drawable/lvoug_about_img"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:adjustViewBounds="true"
+                   android:maxHeight="250dp"
+                   android:scaleType="centerInside"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginLeft="10dp"/>
+
+        <TextView
+                android:id="@+id/article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/usergroup_title"
+                android:layout_gravity="center"
+                android:textSize="22sp"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="1px"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="10dp"
+                      android:background="@drawable/events_divider"/>
+
+        <TextView
+                android:id="@+id/article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/usergroup_about"
+                android:textSize="14sp"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="1px"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="10dp"
+                      android:background="@drawable/events_divider"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+
+            <ImageButton
+                    android:id="@+id/facebookButton"
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:background="@null"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ico_facebook"/>
+
+            <ImageButton
+                    android:id="@+id/googlePlusButton"
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:background="@null"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ico_google"/>
+
+            <ImageButton
+                    android:id="@+id/twitterButton"
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:background="@null"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ico_twitter2"/>
+
+            <ImageButton
+                    android:id="@+id/mailToButton"
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:background="@null"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/envelope"/>
+        </LinearLayout>
+    </LinearLayout>
 
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nav_about"
-            android:id="@+id/textView"
-            android:layout_gravity="center"/>
-
-</LinearLayout>
+</ScrollView>
