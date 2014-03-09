@@ -26,7 +26,7 @@ public class ArticleORMAdapter extends BaseAdapter {
     @Inject
     DrawableService drawableService;
 
-    private SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+    private SimpleDateFormat df = new SimpleDateFormat("E, dd MMM yy");
 
     private AndroidDatabaseResults dbResults;
 
