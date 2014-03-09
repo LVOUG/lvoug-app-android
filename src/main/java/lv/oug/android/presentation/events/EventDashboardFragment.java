@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import butterknife.InjectView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import lv.oug.android.R;
 import lv.oug.android.application.ServerPullService;
-import lv.oug.android.domain.Article;
 import lv.oug.android.domain.Event;
 import lv.oug.android.domain.EventRepository;
+import lv.oug.android.infrastructure.common.NetworkService;
 import lv.oug.android.presentation.BaseFragment;
-import lv.oug.android.presentation.articles.ArticleDetailsFragment;
 
 import javax.inject.Inject;
 
@@ -33,6 +33,9 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
 
     @Inject
     ServerPullService serverPullService;
+
+    @Inject
+    NetworkService networkService;
 
     @InjectView(R.id.list_events)
     PullToRefreshListView listEvents;
@@ -64,10 +67,19 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                if (!networkService.internetAvailable()) {
+                    Toast.makeText(getActivity(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+                }
                 listEvents.onRefreshComplete();
                 adapter.notifyDataSetChanged();
             }
         }.execute();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listEvents.onRefreshComplete();
     }
 
     @Override
@@ -82,11 +94,5 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
         fragment.setArguments(data);
 
         getMainActivity().changeFragment(fragment);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        listEvents.onRefreshComplete();
     }
 }

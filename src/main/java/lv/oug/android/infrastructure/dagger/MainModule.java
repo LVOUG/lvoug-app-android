@@ -30,7 +30,8 @@ import javax.inject.Singleton;
                 ArticleDetailsFragment.class,
                 AboutFragment.class,
 
-                ServerPullService.class
+                ServerPullService.class,
+                ImageLoader.class
         }
 )
 public class MainModule implements DaggerModule {
