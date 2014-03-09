@@ -1,4 +1,4 @@
-package lv.oug.android.infrastructure.common;
+package lv.oug.android.infrastructure;
 
 import lv.oug.android.domain.Article;
 import lv.oug.android.domain.Event;
@@ -25,6 +25,7 @@ public class BeanMapper {
     private Event map(EventJSON eventJSON) {
         Event event = new Event();
         event.setId(eventJSON.getId());
+        event.setLogo(eventJSON.getLogo());
         event.setTitle(eventJSON.getTitle());
         event.setDescription(eventJSON.getDescription());
         event.setAddress(eventJSON.getAddress());

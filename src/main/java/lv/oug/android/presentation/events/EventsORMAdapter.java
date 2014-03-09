@@ -11,6 +11,7 @@ import lv.oug.android.R;
 import lv.oug.android.domain.Event;
 import lv.oug.android.domain.EventRepository;
 import lv.oug.android.infrastructure.common.DrawableService;
+import lv.oug.android.presentation.common.imageloader.ImageLoader;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
@@ -26,6 +27,9 @@ public class EventsORMAdapter extends BaseAdapter {
 
     @Inject
     DrawableService drawableService;
+
+    @Inject
+    ImageLoader imageLoader;
 
     private SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy HH:mm");
 
@@ -93,7 +97,7 @@ public class EventsORMAdapter extends BaseAdapter {
             holder.eventDate.setText(df.format(e.getEventDate()));
         }
 
-        holder.eventHeaderImage.setImageDrawable(drawableService.loadDrawable(R.drawable.test_image));
+        imageLoader.DisplayImage(e.getLogo(), holder.eventHeaderImage);
     }
 
     static class EventHolder {

@@ -4,7 +4,7 @@ import lv.oug.android.domain.Article;
 import lv.oug.android.domain.ArticleRepository;
 import lv.oug.android.domain.Event;
 import lv.oug.android.domain.EventRepository;
-import lv.oug.android.infrastructure.common.BeanMapper;
+import lv.oug.android.infrastructure.BeanMapper;
 import lv.oug.android.infrastructure.common.ClassLogger;
 import lv.oug.android.infrastructure.common.NetworkService;
 import lv.oug.android.infrastructure.common.SharedPreferenceService;
