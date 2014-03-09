@@ -97,7 +97,7 @@ public class EventsORMAdapter extends BaseAdapter {
             holder.eventDate.setText(df.format(e.getEventDate()));
         }
 
-        imageLoader.DisplayImage(e.getLogo(), holder.eventHeaderImage);
+        imageLoader.displayImage(e.getLogo(), holder.eventHeaderImage);
     }
 
     static class EventHolder {

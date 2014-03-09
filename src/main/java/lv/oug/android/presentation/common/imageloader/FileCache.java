@@ -2,16 +2,20 @@ package lv.oug.android.presentation.common.imageloader;
 
 import android.content.Context;
 
+import javax.inject.Inject;
 import java.io.File;
 
 public class FileCache {
 
     private File cacheDir;
 
-    public FileCache(Context context){
+    @Inject
+    Context context;
+
+    public FileCache(){
         //Find the dir to save cached images
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-            cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"LazyList");
+            cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"lvoug");
         else
             cacheDir=context.getCacheDir();
         if(!cacheDir.exists())
@@ -23,8 +27,7 @@ public class FileCache {
         String filename=String.valueOf(url.hashCode());
         //Another possible solution (thanks to grantland)
         //String filename = URLEncoder.encode(url);
-        File f = new File(cacheDir, filename);
-        return f;
+        return new File(cacheDir, filename);
 
     }
 
@@ -35,5 +38,4 @@ public class FileCache {
         for(File f:files)
             f.delete();
     }
-
 }

@@ -18,28 +18,31 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ImageLoader {
-    MemoryCache memoryCache = new MemoryCache();
-    FileCache fileCache;
+    private static final int STUB_IMAGE = R.drawable.abs__progress_primary_holo_dark;
+
     private Map<ImageView, String> imageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-    ExecutorService executorService;
-    Handler handler = new Handler();//handler to display images in UI thread
 
     @Inject
-    public ImageLoader(Context context) {
-        fileCache = new FileCache(context);
-        executorService = Executors.newFixedThreadPool(5);
-    }
+    Context context;
 
-    final int stub_id = R.drawable.abs__progress_primary_holo_dark;
+    @Inject
+    FileCache fileCache;
 
-    public void DisplayImage(String url, ImageView imageView) {
+    @Inject
+    MemoryCache memoryCache;
+
+    Handler handler = new Handler();
+
+    ExecutorService executorService = Executors.newFixedThreadPool(5);
+
+    public void displayImage(String url, ImageView imageView) {
         imageViews.put(imageView, url);
         Bitmap bitmap = memoryCache.get(url);
         if (bitmap != null)
             imageView.setImageBitmap(bitmap);
         else {
             queuePhoto(url, imageView);
-            imageView.setImageResource(stub_id);
+            imageView.setImageResource(STUB_IMAGE);
         }
     }
 
@@ -66,7 +69,7 @@ public class ImageLoader {
             conn.setInstanceFollowRedirects(true);
             InputStream is = conn.getInputStream();
             OutputStream os = new FileOutputStream(f);
-            CopyStream(is, os);
+            copyStream(is, os);
             os.close();
             conn.disconnect();
             bitmap = decodeFile(f);
@@ -173,7 +176,7 @@ public class ImageLoader {
             if (bitmap != null)
                 photoToLoad.imageView.setImageBitmap(bitmap);
             else
-                photoToLoad.imageView.setImageResource(stub_id);
+                photoToLoad.imageView.setImageResource(STUB_IMAGE);
         }
     }
 
@@ -182,20 +185,16 @@ public class ImageLoader {
         fileCache.clear();
     }
 
-    public static void CopyStream(InputStream is, OutputStream os)
-    {
-        final int buffer_size=1024;
-        try
-        {
-            byte[] bytes=new byte[buffer_size];
-            for(;;)
-            {
-                int count=is.read(bytes, 0, buffer_size);
-                if(count==-1)
+    public static void copyStream(InputStream is, OutputStream os) {
+        final int buffer_size = 1024;
+        try {
+            byte[] bytes = new byte[buffer_size];
+            for (; ; ) {
+                int count = is.read(bytes, 0, buffer_size);
+                if (count == -1)
                     break;
                 os.write(bytes, 0, count);
             }
-        }
-        catch(Exception ex){}
+        } catch (Exception ignored) {}
     }
 }
