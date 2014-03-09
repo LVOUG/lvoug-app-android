@@ -11,8 +11,10 @@ import lv.oug.android.presentation.MainActivity;
 import lv.oug.android.presentation.about.AboutFragment;
 import lv.oug.android.presentation.articles.ArticleDashboardFragment;
 import lv.oug.android.presentation.articles.ArticleDetailsFragment;
-import lv.oug.android.presentation.events.EventDetailsFragment;
+import lv.oug.android.presentation.common.imageloader.ImageLoader;
+import lv.oug.android.presentation.common.imageloader.MemoryCache;
 import lv.oug.android.presentation.events.EventDashboardFragment;
+import lv.oug.android.presentation.events.EventDetailsFragment;
 import lv.oug.android.presentation.home.HomeFragment;
 
 import javax.inject.Singleton;
@@ -52,5 +54,17 @@ public class MainModule implements DaggerModule {
     @Provides
     LayoutInflater provideLayoutInflater() {
         return LayoutInflater.from(appContext);
+    }
+
+    @Provides @Singleton
+    MemoryCache provideMemoryCache() {
+        return new MemoryCache();
+    }
+
+    @Provides @Singleton
+    ImageLoader provideImageLoader() {
+        ImageLoader imageLoader = new ImageLoader();
+        BaseApplication.inject(imageLoader);
+        return imageLoader;
     }
 }

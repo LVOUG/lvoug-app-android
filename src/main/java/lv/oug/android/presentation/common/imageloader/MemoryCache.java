@@ -3,7 +3,6 @@ package lv.oug.android.presentation.common.imageloader;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -17,7 +16,6 @@ public class MemoryCache {
     private long size=0;//current allocated size
     private long limit=1000000;//max memory in bytes
 
-    @Inject
     public MemoryCache(){
         //use 25% of available heap size
         setLimit(Runtime.getRuntime().maxMemory()/4);

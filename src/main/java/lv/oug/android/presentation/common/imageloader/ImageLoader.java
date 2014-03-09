@@ -36,6 +36,11 @@ public class ImageLoader {
     ExecutorService executorService = Executors.newFixedThreadPool(5);
 
     public void displayImage(String url, ImageView imageView) {
+        if (url == null) {
+            imageView.setImageResource(STUB_IMAGE);
+            return;
+        }
+
         imageViews.put(imageView, url);
         Bitmap bitmap = memoryCache.get(url);
         if (bitmap != null)
@@ -46,9 +51,43 @@ public class ImageLoader {
         }
     }
 
-    private void queuePhoto(String url, ImageView imageView) {
-        PhotoToLoad p = new PhotoToLoad(url, imageView);
-        executorService.submit(new PhotosLoader(p));
+    public void downloadImage(String url) {
+        if (url == null) return;
+
+        Bitmap bitmap = memoryCache.get(url);
+        if (bitmap == null) {
+            downloadPhoto(url);
+        }
+    }
+
+    private void downloadPhoto(final String url) {
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bmp = getBitmap(url);
+                memoryCache.put(url, bmp);
+            }
+        });
+    }
+
+    private void queuePhoto(final String url, final ImageView imageView) {
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (imageViewReused(imageView, url))
+                        return;
+                    Bitmap bmp = getBitmap(url);
+                    memoryCache.put(url, bmp);
+                    if (imageViewReused(imageView, url))
+                        return;
+                    BitmapDisplayer bd = new BitmapDisplayer(bmp, imageView, url);
+                    handler.post(bd);
+                } catch (Throwable th) {
+                    th.printStackTrace();
+                }
+            }
+        });
     }
 
     private Bitmap getBitmap(String url) {
@@ -118,44 +157,9 @@ public class ImageLoader {
         return null;
     }
 
-    //Task for the queue
-    private class PhotoToLoad {
-        public String url;
-        public ImageView imageView;
-
-        public PhotoToLoad(String u, ImageView i) {
-            url = u;
-            imageView = i;
-        }
-    }
-
-    class PhotosLoader implements Runnable {
-        PhotoToLoad photoToLoad;
-
-        PhotosLoader(PhotoToLoad photoToLoad) {
-            this.photoToLoad = photoToLoad;
-        }
-
-        @Override
-        public void run() {
-            try {
-                if (imageViewReused(photoToLoad))
-                    return;
-                Bitmap bmp = getBitmap(photoToLoad.url);
-                memoryCache.put(photoToLoad.url, bmp);
-                if (imageViewReused(photoToLoad))
-                    return;
-                BitmapDisplayer bd = new BitmapDisplayer(bmp, photoToLoad);
-                handler.post(bd);
-            } catch (Throwable th) {
-                th.printStackTrace();
-            }
-        }
-    }
-
-    boolean imageViewReused(PhotoToLoad photoToLoad) {
-        String tag = imageViews.get(photoToLoad.imageView);
-        if (tag == null || !tag.equals(photoToLoad.url))
+    boolean imageViewReused(ImageView imageView, String url) {
+        String tag = imageViews.get(imageView);
+        if (tag == null || !tag.equals(url))
             return true;
         return false;
     }
@@ -163,20 +167,22 @@ public class ImageLoader {
     //Used to display bitmap in the UI thread
     class BitmapDisplayer implements Runnable {
         Bitmap bitmap;
-        PhotoToLoad photoToLoad;
+        ImageView imageView;
+        String url;
 
-        public BitmapDisplayer(Bitmap b, PhotoToLoad p) {
+        public BitmapDisplayer(Bitmap b, ImageView i, String u) {
             bitmap = b;
-            photoToLoad = p;
+            imageView = i;
+            url = u;
         }
 
         public void run() {
-            if (imageViewReused(photoToLoad))
+            if (imageViewReused(imageView, url))
                 return;
             if (bitmap != null)
-                photoToLoad.imageView.setImageBitmap(bitmap);
+                imageView.setImageBitmap(bitmap);
             else
-                photoToLoad.imageView.setImageResource(STUB_IMAGE);
+                imageView.setImageResource(STUB_IMAGE);
         }
     }
 

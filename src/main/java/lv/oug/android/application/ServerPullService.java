@@ -14,6 +14,7 @@ import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
 import lv.oug.android.integration.webservice.events.EventJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
 import lv.oug.android.presentation.BaseApplication;
+import lv.oug.android.presentation.common.imageloader.ImageLoader;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -44,6 +45,9 @@ public class ServerPullService {
     @Inject
     SharedPreferenceService sharedPreference;
 
+    @Inject
+    ImageLoader imageLoader;
+
     public ServerPullService() {
         BaseApplication.inject(this);
     }
@@ -57,6 +61,7 @@ public class ServerPullService {
             EventsWrapperJSON json = webService.loadEventsWrapper(lastUpdated);
             List<EventJSON> jsonEvents = json.getEvents();
             if(jsonEvents != null) {
+                loadEventImagesInBackground(jsonEvents);
                 List<Event> events = beanMapper.mapEvents(jsonEvents);
                 eventRepository.saveOrUpdate(events);
                 logger.d("Received  " + jsonEvents.size() + " events from server");
@@ -76,6 +81,7 @@ public class ServerPullService {
             ArticleWrapperJSON json = webService.loadArticleWrapper(lastUpdated);
             List<ArticleJSON> jsonArticles = json.getArticles();
             if(jsonArticles != null) {
+                loadArticleImagesInBackground(jsonArticles);
                 List<Article> articles = beanMapper.mapArticles(jsonArticles);
                 articleRepository.saveOrUpdate(articles);
                 logger.d("Received  " + articles.size() + " articles from server");
@@ -83,6 +89,19 @@ public class ServerPullService {
             sharedPreference.savePreference(ARTICLES_TIMESTAMP, now.getTime());
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void loadEventImagesInBackground(List<EventJSON> jsonEvents) {
+        for (EventJSON jsonEvent : jsonEvents) {
+            imageLoader.downloadImage(jsonEvent.getLogo());
+            // TODO: add sponsor logos
+        }
+    }
+
+    private void loadArticleImagesInBackground(List<ArticleJSON> jsonArticles) {
+        for (ArticleJSON jsonArticle : jsonArticles) {
+            imageLoader.downloadImage(jsonArticle.getImage());
         }
     }
 }
