@@ -31,7 +31,7 @@ public class EventsORMAdapter extends BaseAdapter {
     @Inject
     ImageLoader imageLoader;
 
-    private SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+    private SimpleDateFormat df = new SimpleDateFormat("E, dd MMM yy HH:mm");
 
     private AndroidDatabaseResults dbResults;
 
