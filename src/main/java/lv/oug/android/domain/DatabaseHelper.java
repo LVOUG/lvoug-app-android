@@ -13,14 +13,15 @@ import java.sql.SQLException;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static ClassLogger logger = new ClassLogger(DatabaseHelper.class);
-
     private static final String DATABASE_NAME = "lvoug.db";
     private static final int DATABASE_VERSION = 1;
     private static final int NOT_MAPPED = -1;
-
+    private static ClassLogger logger = new ClassLogger(DatabaseHelper.class);
     private Dao<Event, Integer> eventDao;
     private Dao<Article, Integer> articleDao;
+    private Dao<Sponsor, Integer> sponsorDao;
+    private Dao<Material, Integer> materialDao;
+    private Dao<Contact, Integer> contactDao;
 
     @Inject
     public DatabaseHelper(Context context) {
@@ -33,6 +34,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             logger.i("onCreate");
             TableUtils.createTable(connectionSource, Event.class);
             TableUtils.createTable(connectionSource, Article.class);
+            TableUtils.createTable(connectionSource, Contact.class);
+            TableUtils.createTable(connectionSource, Material.class);
+            TableUtils.createTable(connectionSource, Sponsor.class);
 
         } catch (SQLException e) {
             logger.e("Can't create database", e);
@@ -46,6 +50,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             logger.i("onUpgrade");
             TableUtils.dropTable(connectionSource, Event.class, true);
             TableUtils.dropTable(connectionSource, Article.class, true);
+            TableUtils.dropTable(connectionSource, Contact.class, true);
+            TableUtils.dropTable(connectionSource, Material.class, true);
+            TableUtils.dropTable(connectionSource, Sponsor.class, true);
+
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             logger.e("Can't drop databases", e);
@@ -65,5 +73,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             articleDao = getDao(Article.class);
         }
         return articleDao;
+    }
+
+    public Dao<Sponsor, Integer> getSponsorDao() throws SQLException {
+        if (sponsorDao == null) {
+            sponsorDao = getDao(Sponsor.class);
+        }
+        return sponsorDao;
+    }
+
+    public Dao<Material, Integer> getMaterialDao() throws SQLException {
+        if (materialDao == null) {
+            materialDao = getDao(Material.class);
+        }
+        return materialDao;
+    }
+
+    public Dao<Contact, Integer> getContactDao() throws SQLException {
+        if (contactDao == null) {
+            contactDao = getDao(Contact.class);
+        }
+        return contactDao;
     }
 }

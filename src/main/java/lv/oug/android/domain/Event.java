@@ -2,7 +2,9 @@ package lv.oug.android.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 
 import java.util.Date;
 
@@ -41,7 +43,18 @@ public class Event implements Parcelable {
     @DatabaseField
     private Date updatedAt;
 
-    public Event() {}
+    @ForeignCollectionField(eager = true)
+    private ForeignCollection<Contact> contacts;
+
+    @ForeignCollectionField(eager = true)
+    private ForeignCollection<Material> materials;
+
+    @ForeignCollectionField(eager = true)
+    private ForeignCollection<Sponsor> sponsors;
+
+
+    public Event() {
+    }
 
     private Event(Parcel in) {
         id = in.readLong();
@@ -175,5 +188,29 @@ public class Event implements Parcelable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public ForeignCollection<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ForeignCollection<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public ForeignCollection<Material> getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(ForeignCollection<Material> materials) {
+        this.materials = materials;
+    }
+
+    public ForeignCollection<Sponsor> getSponsors() {
+        return sponsors;
+    }
+
+    public void setSponsors(ForeignCollection<Sponsor> sponsors) {
+        this.sponsors = sponsors;
     }
 }

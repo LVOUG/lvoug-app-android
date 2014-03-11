@@ -1,22 +1,26 @@
-package lv.oug.android.integration.webservice.events;
+package lv.oug.android.domain;
 
-import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
 
-public class ContactJSON {
-    @SerializedName("id")
+public class Contact {
+
+    @DatabaseField(id = true)
     private long id;
 
-    @SerializedName("name")
+    @DatabaseField
     private String name;
 
-    @SerializedName("surname")
+    @DatabaseField
     private String surname;
 
-    @SerializedName("email")
+    @DatabaseField
     private String email;
 
-    @SerializedName("telephone")
+    @DatabaseField
     private String phone;
+
+    @DatabaseField(foreign = true, columnName = "event_id")
+    private Event event;
 
     public long getId() {
         return id;
@@ -56,5 +60,13 @@ public class ContactJSON {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

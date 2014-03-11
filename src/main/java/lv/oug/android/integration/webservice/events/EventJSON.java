@@ -9,30 +9,43 @@ public class EventJSON {
 
     @SerializedName("id")
     private long id;
+
     @SerializedName("logo")
     private String logo;
+
     @SerializedName("title")
     private String title;
+
     @SerializedName("description")
     private String description;
+
     @SerializedName("address")
     private String address;
+
     @SerializedName("address_latitude")
     private double addressLatitude;
+
     @SerializedName("address_longitude")
     private double addressLongitude;
+
     @SerializedName("event_page")
     private String eventPage;
+
     @SerializedName("event_date")
     private Date eventDate;
+
     @SerializedName("created_at")
     private Date createdAt;
+
     @SerializedName("updated_at")
     private Date updatedAt;
+
     @SerializedName("event_materials")
     private List<MaterialJSON> materials;
+
     @SerializedName("sponsors")
     private List<SponsorJSON> sponsors;
+
     @SerializedName("contacts")
     private List<ContactJSON> contacts;
 

@@ -1,16 +1,20 @@
-package lv.oug.android.integration.webservice.events;
+package lv.oug.android.domain;
 
-import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
 
-public class SponsorJSON {
-    @SerializedName("id")
+public class Sponsor {
+
+    @DatabaseField(id = true)
     private long id;
 
-    @SerializedName("name")
+    @DatabaseField
     private String name;
 
-    @SerializedName("image")
+    @DatabaseField
     private String image;
+
+    @DatabaseField(foreign = true, columnName = "event_id")
+    private Event event;
 
     public long getId() {
         return id;
@@ -34,5 +38,13 @@ public class SponsorJSON {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

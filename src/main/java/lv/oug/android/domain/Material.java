@@ -1,17 +1,20 @@
-package lv.oug.android.integration.webservice.events;
+package lv.oug.android.domain;
 
-import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
 
-public class MaterialJSON {
+public class Material {
 
-    @SerializedName("id")
+    @DatabaseField(id = true)
     private long id;
 
-    @SerializedName("title")
+    @DatabaseField
     private String title;
 
-    @SerializedName("url")
+    @DatabaseField
     private String url;
+
+    @DatabaseField(foreign = true, columnName = "event_id")
+    private Event event;
 
     public long getId() {
         return id;
@@ -35,5 +38,13 @@ public class MaterialJSON {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }
