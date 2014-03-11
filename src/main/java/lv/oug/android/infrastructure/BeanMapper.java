@@ -17,10 +17,6 @@ public class BeanMapper {
     @Inject
     EventRepository eventRepository;
 
-    @Inject
-    public BeanMapper() {
-    }
-
     public List<Event> mapEvents(List<EventJSON> json) {
         List<Event> result = new ArrayList<Event>();
         for (EventJSON jsonItem : json) {

@@ -21,6 +21,11 @@ public class SharedPreferenceService {
         return sharedPrefs.getLong(pref, 0);
     }
 
+    public boolean loadPreferenceBoolean(String pref) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPrefs.getBoolean(pref, false);
+    }
+
     public void savePreference(String pref, String s) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPrefs.edit();

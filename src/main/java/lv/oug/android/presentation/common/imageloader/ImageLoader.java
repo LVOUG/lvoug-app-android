@@ -31,7 +31,7 @@ public class ImageLoader {
     @Inject
     MemoryCache memoryCache;
 
-    Handler handler = new Handler();
+    Handler handler;
 
     ExecutorService executorService = Executors.newFixedThreadPool(5);
 
@@ -82,6 +82,9 @@ public class ImageLoader {
                     if (imageViewReused(imageView, url))
                         return;
                     BitmapDisplayer bd = new BitmapDisplayer(bmp, imageView, url);
+                    if (handler == null) {
+                        handler = new Handler();
+                    }
                     handler.post(bd);
                 } catch (Throwable th) {
                     th.printStackTrace();

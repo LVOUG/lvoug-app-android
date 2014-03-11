@@ -16,6 +16,7 @@ import java.util.List;
 public class EventRepository {
 
     public static final String EVENTS_TIMESTAMP = "EVENTS_TIMESTAMP";
+    public static final String EVENTS_FETCH_IN_PROGRESS = "EVENTS_FETCH_IN_PROGRESS";
 
     private static ClassLogger logger = new ClassLogger(EventRepository.class);
 

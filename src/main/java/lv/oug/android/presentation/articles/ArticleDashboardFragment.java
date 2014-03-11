@@ -14,6 +14,7 @@ import lv.oug.android.application.ServerPullService;
 import lv.oug.android.domain.Article;
 import lv.oug.android.infrastructure.common.ClassLogger;
 import lv.oug.android.infrastructure.common.NetworkService;
+import lv.oug.android.infrastructure.common.SharedPreferenceService;
 import lv.oug.android.presentation.BaseFragment;
 
 import javax.inject.Inject;
@@ -35,6 +36,9 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
     @Inject
     ServerPullService serverPullService;
 
+    @Inject
+    SharedPreferenceService sharedPreference;
+
     @InjectView(R.id.list_articles)
     PullToRefreshListView listArticles;
 
@@ -48,9 +52,6 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
         listArticles.setAdapter(adapter);
         listArticles.setOnRefreshListener(this);
         listArticles.setOnItemClickListener(this);
-
-        listArticles.setRefreshing();
-        onRefresh(null);
     }
 
     @Override
@@ -60,6 +61,11 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
 
                 @Override
                 protected Void doInBackground(Void... params) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     serverPullService.loadAndSaveArticles();
                     return null;
                 }
@@ -82,7 +88,8 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
     @Override
     public void onResume() {
         super.onResume();
-        listArticles.onRefreshComplete();
+        listArticles.setRefreshing();
+        onRefresh(null);
     }
 
     @Override

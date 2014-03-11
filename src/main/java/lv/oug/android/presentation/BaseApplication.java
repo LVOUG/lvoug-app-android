@@ -37,7 +37,7 @@ public class BaseApplication extends Application {
                     serverPullService.loadAndSaveArticles();
                     return null;
                 }
-            };
+            }.execute();
         } catch (Exception e) {
             logger.e("Exception during server connection", e);
         }

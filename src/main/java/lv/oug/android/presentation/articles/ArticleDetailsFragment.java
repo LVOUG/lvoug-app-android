@@ -50,8 +50,6 @@ public class ArticleDetailsFragment extends BaseFragment {
         if (!StringUtils.isEmpty(icon)) {
             articleIcon.setVisibility(View.VISIBLE);
             imageLoader.displayImage(icon, articleIcon);
-        } else {
-            articleIcon.setVisibility(View.GONE);
         }
     }
 }
