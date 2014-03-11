@@ -1,6 +1,7 @@
 package lv.oug.android.presentation.articles;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
@@ -47,7 +48,10 @@ public class ArticleDetailsFragment extends BaseFragment {
         articleDate.setText(df.format(article.getUpdatedAt()));
         String icon = article.getIcon();
         if (!StringUtils.isEmpty(icon)) {
+            articleIcon.setVisibility(View.VISIBLE);
             imageLoader.displayImage(icon, articleIcon);
+        } else {
+            articleIcon.setVisibility(View.GONE);
         }
     }
 }

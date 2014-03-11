@@ -15,10 +15,12 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:minHeight="70dp"
+            android:maxHeight="400dp"
             android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             />
     <LinearLayout
+            android:id="@+id/event_image_shadow"
             android:layout_height="6px"
             android:layout_width="match_parent"
             android:orientation="horizontal"
