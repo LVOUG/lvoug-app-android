@@ -46,7 +46,7 @@ public class ArticleDetailsFragment extends BaseFragment {
         articleDescription.setText(article.getDescription());
         articleDate.setText(df.format(article.getUpdatedAt()));
         String icon = article.getIcon();
-        if (StringUtils.isEmpty(icon)) {
+        if (!StringUtils.isEmpty(icon)) {
             imageLoader.displayImage(icon, articleIcon);
         }
     }

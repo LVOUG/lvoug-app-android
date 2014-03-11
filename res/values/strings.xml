@@ -7,6 +7,7 @@
 
     <string name="no_internet">No internet available</string>
     <string name="check_internet">Check your internet connection</string>
+    <string name="failed_to_connect_to_server">Connection to server failed</string>
     <string name="no_img_found">No IMG found</string>
     <string name="app_not_available">App not available</string>
 

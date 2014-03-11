@@ -13,6 +13,7 @@ import lv.oug.android.R;
 import lv.oug.android.application.ServerPullService;
 import lv.oug.android.domain.Event;
 import lv.oug.android.domain.EventRepository;
+import lv.oug.android.infrastructure.common.ClassLogger;
 import lv.oug.android.infrastructure.common.NetworkService;
 import lv.oug.android.presentation.BaseFragment;
 
@@ -24,6 +25,8 @@ import static lv.oug.android.presentation.events.EventDetailsFragment.EVENT_DETA
 
 
 public class EventDashboardFragment extends BaseFragment implements OnRefreshListener<ListView>, OnItemClickListener {
+
+    private final ClassLogger logger = new ClassLogger(EventDashboardFragment.class);
 
     @Inject
     EventRepository eventsRepository;
@@ -57,23 +60,32 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
 
     @Override
     public void onRefresh(PullToRefreshBase refreshView) {
-        new AsyncTask<Void, Void, Void>() {
+        try {
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                serverPullService.loadAndSaveEvents();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                if (!networkService.internetAvailable()) {
-                    Toast.makeText(getActivity(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+                @Override
+                protected void onPreExecute() {
+                    if (!networkService.internetAvailable()) {
+                        Toast.makeText(getActivity(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+                    }
                 }
-                listEvents.onRefreshComplete();
-                adapter.notifyDataSetChanged();
-            }
-        }.execute();
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    serverPullService.loadAndSaveEvents();
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    listEvents.onRefreshComplete();
+                    adapter.notifyDataSetChanged();
+                }
+            }.execute();
+        } catch (Exception e) {
+            logger.e("Exception during server connection", e);
+            Toast.makeText(getActivity(), R.string.failed_to_connect_to_server, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
