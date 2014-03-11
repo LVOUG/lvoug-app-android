@@ -3,41 +3,38 @@ package lv.oug.android.integration.webservice.events;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 public class EventJSON {
 
     @SerializedName("id")
     private long id;
-
     @SerializedName("logo")
     private String logo;
-
     @SerializedName("title")
     private String title;
-
     @SerializedName("description")
     private String description;
-
     @SerializedName("address")
     private String address;
-
     @SerializedName("address_latitude")
     private double addressLatitude;
-
     @SerializedName("address_longitude")
     private double addressLongitude;
-
     @SerializedName("event_page")
     private String eventPage;
-
     @SerializedName("event_date")
     private Date eventDate;
-
     @SerializedName("created_at")
     private Date createdAt;
-
     @SerializedName("updated_at")
     private Date updatedAt;
+    @SerializedName("event_materials")
+    private List<MaterialJSON> materials;
+    @SerializedName("sponsors")
+    private List<SponsorJSON> sponsors;
+    @SerializedName("contacts")
+    private List<ContactJSON> contacts;
 
     public long getId() {
         return id;
@@ -125,5 +122,29 @@ public class EventJSON {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<MaterialJSON> getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(List<MaterialJSON> materials) {
+        this.materials = materials;
+    }
+
+    public List<SponsorJSON> getSponsors() {
+        return sponsors;
+    }
+
+    public void setSponsors(List<SponsorJSON> sponsors) {
+        this.sponsors = sponsors;
+    }
+
+    public List<ContactJSON> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<ContactJSON> contacts) {
+        this.contacts = contacts;
     }
 }
