@@ -18,7 +18,6 @@ public class ArticleJSON {
     @SerializedName("image")
     private String image;
 
-
     @SerializedName("created_at")
     private Date createdAt;
 

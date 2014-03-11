@@ -53,6 +53,7 @@ public class BeanMapper {
         article.setDescription(articleJSON.getDescription());
         article.setCreatedAt(articleJSON.getCreatedAt());
         article.setUpdatedAt(articleJSON.getUpdatedAt());
+        article.setIcon(articleJSON.getImage());
         return article;
     }
 }

@@ -18,6 +18,9 @@ public class Article implements Parcelable {
     private String description;
 
     @DatabaseField
+    private String icon;
+
+    @DatabaseField
     private Date createdAt;
 
     @DatabaseField
@@ -31,6 +34,7 @@ public class Article implements Parcelable {
         description = in.readString();
         createdAt = new Date(in.readLong());
         updatedAt = new Date(in.readLong());
+        icon = in.readString();
     }
 
     @Override
@@ -45,6 +49,7 @@ public class Article implements Parcelable {
         out.writeString(description);
         out.writeLong(createdAt.getTime());
         out.writeLong(updatedAt.getTime());
+        out.writeString(icon);
     }
 
     public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
@@ -97,5 +102,13 @@ public class Article implements Parcelable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

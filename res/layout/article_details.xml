@@ -17,7 +17,6 @@
             android:id="@+id/article_date"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Tue, 05 Feb 2013"
             android:textColor="@color/core_disabled"
             android:layout_marginTop="5dp"
             android:textSize="12sp"
@@ -27,6 +26,13 @@
                   android:layout_marginTop="10dp"
                   android:layout_height="1px"
                   android:background="@drawable/events_divider"/>
+
+    <ImageView
+            android:id="@+id/article_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
     <TextView
             android:id="@+id/article_description"

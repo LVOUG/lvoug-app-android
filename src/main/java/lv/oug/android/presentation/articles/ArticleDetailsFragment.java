@@ -1,23 +1,32 @@
 package lv.oug.android.presentation.articles;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
 import lv.oug.android.R;
 import lv.oug.android.domain.Article;
+import lv.oug.android.infrastructure.common.StringUtils;
 import lv.oug.android.presentation.BaseFragment;
+import lv.oug.android.presentation.common.imageloader.ImageLoader;
 
+import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 
 public class ArticleDetailsFragment extends BaseFragment {
 
     public static final String ARTICLE_DETAILS_KEY = "article_details";
+    @Inject
+    ImageLoader imageLoader;
+
     @InjectView(R.id.article_title)
     TextView articleTitle;
     @InjectView(R.id.article_description)
     TextView articleDescription;
     @InjectView(R.id.article_date)
     TextView articleDate;
+    @InjectView(R.id.article_icon)
+    ImageView articleIcon;
 
     SimpleDateFormat df = new SimpleDateFormat("E, dd MMM yy");
 
@@ -36,5 +45,9 @@ public class ArticleDetailsFragment extends BaseFragment {
         articleTitle.setText(article.getTitle());
         articleDescription.setText(article.getDescription());
         articleDate.setText(df.format(article.getUpdatedAt()));
+        String icon = article.getIcon();
+        if (StringUtils.isEmpty(icon)) {
+            imageLoader.displayImage(icon, articleIcon);
+        }
     }
 }

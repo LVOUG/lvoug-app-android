@@ -15,6 +15,7 @@
                    android:layout_height="wrap_content"
                    android:adjustViewBounds="true"
                    android:maxHeight="250dp"
+                   android:layout_gravity="center_horizontal"
                    android:scaleType="centerInside"
                    android:layout_marginRight="10dp"
                    android:layout_marginLeft="10dp"/>
