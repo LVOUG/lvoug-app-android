@@ -53,9 +53,6 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
         listEvents.setAdapter(adapter);
         listEvents.setOnRefreshListener(this);
         listEvents.setOnItemClickListener(this);
-
-        listEvents.setRefreshing();
-        onRefresh(null);
     }
 
     @Override
@@ -91,7 +88,8 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
     @Override
     public void onResume() {
         super.onResume();
-        listEvents.onRefreshComplete();
+        listEvents.setRefreshing();
+        onRefresh(null);
     }
 
     @Override

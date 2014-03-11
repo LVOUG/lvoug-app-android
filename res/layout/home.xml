@@ -7,11 +7,36 @@
               android:layout_weight="1">
 
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:id="@+id/textView"
-            android:layout_gravity="center"/>
+    <LinearLayout
+            android:id="@+id/upcoming_event"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:id="@+id/event_title"
+                android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/last_article"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:id="@+id/article_title"
+                android:layout_gravity="center"/>
+
+    </LinearLayout>
 
 </LinearLayout>

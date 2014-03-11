@@ -10,6 +10,10 @@ public class DateService {
     @Inject
     public DateService() {}
 
+    public Date currentDate() {
+        return new Date();
+    }
+
     public String format(Date date, String formatString) {
         SimpleDateFormat format = new SimpleDateFormat(formatString);
         return format.format(date);

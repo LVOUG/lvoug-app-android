@@ -8,9 +8,11 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import lv.oug.android.infrastructure.common.ClassLogger;
+import lv.oug.android.infrastructure.common.DateService;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class EventRepository {
@@ -25,6 +27,9 @@ public class EventRepository {
 
     @Inject
     DatabaseHelper db;
+
+    @Inject
+    DateService dateService;
 
     public void saveOrUpdate(List<Event> list) {
         try {
@@ -67,6 +72,19 @@ public class EventRepository {
             queryBuilder.orderBy("createdAt", false);
             PreparedQuery<Event> query = queryBuilder.prepare();
             return (AndroidDatabaseResults) getEventDao().iterator(query).getRawResults();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Event loadNextUpcomingEvent() {
+        try {
+            Date now = dateService.currentDate();
+            QueryBuilder<Event, Integer> queryBuilder = getEventDao().queryBuilder();
+            queryBuilder.where().ge("eventDate", now);
+            QueryBuilder<Event, Integer> query = queryBuilder.orderBy("eventDate", true);
+            return getEventDao().queryForFirst(query.prepare());
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

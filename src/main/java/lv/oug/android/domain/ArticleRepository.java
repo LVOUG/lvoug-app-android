@@ -8,6 +8,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import lv.oug.android.infrastructure.common.ClassLogger;
+import lv.oug.android.infrastructure.common.DateService;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
@@ -25,6 +26,9 @@ public class ArticleRepository {
 
     @Inject
     DatabaseHelper db;
+
+    @Inject
+    DateService dateService;
 
     public void saveOrUpdate(List<Article> list) {
         try {
@@ -63,6 +67,16 @@ public class ArticleRepository {
             queryBuilder.orderBy("createdAt", false);
             PreparedQuery<Article> query = queryBuilder.prepare();
             return (AndroidDatabaseResults) getArticleDao().iterator(query).getRawResults();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Article loadLatestArticle() {
+        try {
+            QueryBuilder<Article, Integer> queryBuilder = getArticleDao().queryBuilder();
+            PreparedQuery<Article> query = queryBuilder.orderBy("createdAt", false).prepare();
+            return getArticleDao().queryForFirst(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
