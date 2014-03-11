@@ -29,6 +29,18 @@ public class EventRepository {
         try {
             for (Event event : list) {
                 getEventDao().createOrUpdate(event);
+
+                for (Contact contact : event.getContacts()) {
+                    db.getContactDao().createOrUpdate(contact);
+                }
+
+                for (Material material : event.getMaterials()) {
+                    db.getMaterialDao().createOrUpdate(material);
+                }
+
+                for (Sponsor sponsor : event.getSponsors()) {
+                    db.getSponsorDao().createOrUpdate(sponsor);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
