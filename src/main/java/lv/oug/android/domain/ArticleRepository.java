@@ -17,7 +17,6 @@ import java.util.List;
 public class ArticleRepository {
 
     public static final String ARTICLES_TIMESTAMP = "ARTICLES_TIMESTAMP";
-    public static final String ARTICLES_FETCH_IN_PROGRESS = "ARTICLES_FETCH_IN_PROGRESS";
 
     private static ClassLogger logger = new ClassLogger(EventRepository.class);
 

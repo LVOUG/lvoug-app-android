@@ -20,9 +20,7 @@ import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
-import static lv.oug.android.domain.ArticleRepository.ARTICLES_FETCH_IN_PROGRESS;
 import static lv.oug.android.domain.ArticleRepository.ARTICLES_TIMESTAMP;
-import static lv.oug.android.domain.EventRepository.EVENTS_FETCH_IN_PROGRESS;
 import static lv.oug.android.domain.EventRepository.EVENTS_TIMESTAMP;
 
 public class ServerPullService {
@@ -56,9 +54,7 @@ public class ServerPullService {
 
     public void loadAndSaveEvents() {
         try {
-            boolean inProgress = sharedPreference.loadPreferenceBoolean(EVENTS_FETCH_IN_PROGRESS);
-            if (inProgress || !networkService.internetAvailable()) return;
-            sharedPreference.savePreference(EVENTS_FETCH_IN_PROGRESS, true);
+            if (!networkService.internetAvailable()) return;
 
             Date now = new Date();
             Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(EVENTS_TIMESTAMP));
@@ -72,7 +68,6 @@ public class ServerPullService {
                 logger.d("Received  " + jsonEvents.size() + " events from server");
             }
             sharedPreference.savePreference(EVENTS_TIMESTAMP, now.getTime());
-            sharedPreference.savePreference(EVENTS_FETCH_IN_PROGRESS, false);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -80,9 +75,7 @@ public class ServerPullService {
 
     public void loadAndSaveArticles() {
         try {
-            boolean inProgress = sharedPreference.loadPreferenceBoolean(ARTICLES_FETCH_IN_PROGRESS);
-            if (inProgress || !networkService.internetAvailable()) return;
-            sharedPreference.savePreference(ARTICLES_FETCH_IN_PROGRESS, true);
+            if (!networkService.internetAvailable()) return;
 
             Date now = new Date();
             Date lastUpdated = new Date(sharedPreference.loadPreferenceLong(ARTICLES_TIMESTAMP));
@@ -96,7 +89,6 @@ public class ServerPullService {
                 logger.d("Received  " + articles.size() + " articles from server");
             }
             sharedPreference.savePreference(ARTICLES_TIMESTAMP, now.getTime());
-            sharedPreference.savePreference(ARTICLES_FETCH_IN_PROGRESS, false);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
