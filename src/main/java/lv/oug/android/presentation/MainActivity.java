@@ -168,7 +168,7 @@ public class MainActivity extends SherlockFragmentActivity {
             } else if (navigationItem == NavigationItem.ABOUT) {
                 changeFragment(new AboutFragment(), selectedItem);
             } else if (navigationItem == NavigationItem.TWITTER) {
-                socialNetworkNavigation.goTwitter("lvoug");
+                socialNetworkNavigation.goTwitter(R.string.twitter);
             }
 
         }

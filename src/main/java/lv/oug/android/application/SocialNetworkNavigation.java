@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import lv.oug.android.infrastructure.common.StringService;
 
 import javax.inject.Inject;
 
@@ -12,8 +13,12 @@ public class SocialNetworkNavigation {
     @Inject
     Context context;
 
-    public void goGooglePlus(String profile) {
+    @Inject
+    StringService stringService;
+
+    public void goGooglePlus(int profileId) {
         Intent intent;
+        String profile = stringService.loadString(profileId);
         try {
             context.getPackageManager().getPackageInfo("com.google.android.apps.plus", 0);
             intent = new Intent(Intent.ACTION_VIEW);
@@ -27,21 +32,23 @@ public class SocialNetworkNavigation {
         context.startActivity(intent);
     }
 
-    public void goFacebook(String id) {
+    public void goFacebook(int id) {
         Intent intent;
+        String profile = stringService.loadString(id);
         try {
             context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
-            String facebookScheme = "fb://profile/" + id;
+            String facebookScheme = "fb://profile/" + profile;
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookScheme));
         } catch (PackageManager.NameNotFoundException e) {
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + id));
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + profile));
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
-    public void goTwitter(String profile) {
+    public void goTwitter(int profileId) {
         Intent intent;
+        String profile = stringService.loadString(profileId);
         try {
             context.getPackageManager().getPackageInfo("com.twitter.android", 0);
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + profile));
@@ -52,7 +59,10 @@ public class SocialNetworkNavigation {
         context.startActivity(intent);
     }
 
-    public void goMailTo(String mail, String subject) {
+    public void goMailTo(int mailId, int subjectId) {
+        String mail = stringService.loadString(mailId);
+        String subject = stringService.loadString(subjectId);
+
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:" + mail));
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);

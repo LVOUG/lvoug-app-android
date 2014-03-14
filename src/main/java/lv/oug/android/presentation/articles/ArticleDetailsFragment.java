@@ -7,18 +7,22 @@ import android.widget.TextView;
 import butterknife.InjectView;
 import lv.oug.android.R;
 import lv.oug.android.domain.Article;
+import lv.oug.android.infrastructure.common.DateService;
 import lv.oug.android.infrastructure.common.StringUtils;
 import lv.oug.android.presentation.BaseFragment;
 import lv.oug.android.presentation.common.imageloader.ImageLoader;
 
 import javax.inject.Inject;
-import java.text.SimpleDateFormat;
 
 public class ArticleDetailsFragment extends BaseFragment {
 
     public static final String ARTICLE_DETAILS_KEY = "article_details";
+
     @Inject
     ImageLoader imageLoader;
+
+    @Inject
+    DateService dateService;
 
     @InjectView(R.id.article_title)
     TextView articleTitle;
@@ -28,8 +32,6 @@ public class ArticleDetailsFragment extends BaseFragment {
     TextView articleDate;
     @InjectView(R.id.article_icon)
     ImageView articleIcon;
-
-    SimpleDateFormat df = new SimpleDateFormat("E, dd MMM yy");
 
     @Override
     protected int contentViewId() {
@@ -45,7 +47,7 @@ public class ArticleDetailsFragment extends BaseFragment {
     private void showArticle(Article article) {
         articleTitle.setText(article.getTitle());
         articleDescription.setText(article.getDescription());
-        articleDate.setText(df.format(article.getUpdatedAt()));
+        articleDate.setText(dateService.format(article.getUpdatedAt()));
         String icon = article.getIcon();
         if (!StringUtils.isEmpty(icon)) {
             articleIcon.setVisibility(View.VISIBLE);

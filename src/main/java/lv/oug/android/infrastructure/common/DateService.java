@@ -7,11 +7,17 @@ import java.util.Date;
 
 public class DateService {
 
+    private static final String DEFAULT_FORMAT = "E, dd MMM yy";
+
     @Inject
     public DateService() {}
 
     public Date currentDate() {
         return new Date();
+    }
+
+    public String format(Date date) {
+        return format(date, DEFAULT_FORMAT);
     }
 
     public String format(Date date, String formatString) {
