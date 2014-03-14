@@ -1,13 +1,18 @@
 package lv.oug.android.presentation.events;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.InjectView;
+import com.j256.ormlite.dao.ForeignCollection;
 import lv.oug.android.R;
+import lv.oug.android.domain.Contact;
 import lv.oug.android.domain.Event;
+import lv.oug.android.domain.Sponsor;
 import lv.oug.android.infrastructure.common.DateService;
 import lv.oug.android.infrastructure.common.StringUtils;
 import lv.oug.android.presentation.BaseFragment;
@@ -28,15 +33,19 @@ public class EventDetailsFragment extends BaseFragment {
 
     @InjectView(R.id.event_title)
     TextView eventTitle;
+
     @InjectView(R.id.event_description)
     TextView eventDescription;
+
     @InjectView(R.id.event_date)
     TextView eventDate;
+
     @InjectView(R.id.event_icon)
     ImageView eventIcon;
 
     @InjectView(R.id.sponsors_container)
     LinearLayout sponsorsContainer;
+
     @InjectView(R.id.contacts_container)
     LinearLayout contactsContainer;
 
