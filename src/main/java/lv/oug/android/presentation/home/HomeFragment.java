@@ -45,7 +45,9 @@ public class HomeFragment extends BaseFragment {
         Event event = eventRepository.loadNextUpcomingEvent();
         if (event == null) {
             Article article = articleRepository.loadLatestArticle();
-            showArticle(article);
+            if (article != null) {
+                showArticle(article);
+            }
         } else {
             showEvent(event);
         }

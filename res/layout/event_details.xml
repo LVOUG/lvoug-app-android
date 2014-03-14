@@ -1,49 +1,100 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@drawable/pattern"
-              android:layout_weight="1"
-              android:padding="10dp">
-
-    <TextView
-            android:id="@+id/event_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-    <TextView
-            android:id="@+id/event_date"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/core_disabled"
-            android:layout_marginTop="5dp"
-            android:textSize="12sp"
-            />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/pattern"
+            android:layout_weight="1">
 
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_marginTop="10dp"
-                  android:layout_height="1px"
-                  android:background="@drawable/events_divider"/>
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="10dp"
+            >
 
-    <ImageView
-            android:id="@+id/event_icon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="400dp"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+        <TextView
+                android:id="@+id/event_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"/>
 
-    <TextView
-            android:id="@+id/event_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:lineSpacingMultiplier="1.2"
-            android:autoLink="all"
-            android:textSize="14sp"/>
-</LinearLayout>
+        <TextView
+                android:id="@+id/event_date"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/core_disabled"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                />
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="1px"
+                      android:background="@drawable/events_divider"/>
+
+        <ImageView
+                android:id="@+id/event_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+        <TextView
+                android:id="@+id/event_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1.2"
+                android:autoLink="all"
+                android:textSize="14sp"/>
+
+
+        <LinearLayout
+                android:id="@+id/sponsors_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical"
+                >
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="1px"
+                          android:background="@drawable/events_divider"/>
+
+            <TextView android:text="@string/sponsors"
+                      android:textSize="16sp"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginBottom="5dp"
+                      android:gravity="center_horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/contacts_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical"
+                >
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="1px"
+                          android:background="@drawable/events_divider"/>
+
+            <TextView android:text="@string/contacts"
+                      android:textSize="16sp"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginBottom="5dp"
+                      android:gravity="center_horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
