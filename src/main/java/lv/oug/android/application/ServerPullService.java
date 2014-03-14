@@ -13,6 +13,7 @@ import lv.oug.android.integration.webservice.articles.ArticleJSON;
 import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
 import lv.oug.android.integration.webservice.events.EventJSON;
 import lv.oug.android.integration.webservice.events.EventsWrapperJSON;
+import lv.oug.android.integration.webservice.events.SponsorJSON;
 import lv.oug.android.presentation.BaseApplication;
 import lv.oug.android.presentation.common.imageloader.ImageLoader;
 
@@ -61,7 +62,7 @@ public class ServerPullService {
 
             EventsWrapperJSON json = webService.loadEventsWrapper(lastUpdated);
             List<EventJSON> jsonEvents = json.getEvents();
-            if(jsonEvents != null) {
+            if (jsonEvents != null) {
                 loadEventImagesInBackground(jsonEvents);
                 List<Event> events = beanMapper.mapEvents(jsonEvents);
                 eventRepository.saveOrUpdate(events);
@@ -82,7 +83,7 @@ public class ServerPullService {
 
             ArticleWrapperJSON json = webService.loadArticleWrapper(lastUpdated);
             List<ArticleJSON> jsonArticles = json.getArticles();
-            if(jsonArticles != null) {
+            if (jsonArticles != null) {
                 loadArticleImagesInBackground(jsonArticles);
                 List<Article> articles = beanMapper.mapArticles(jsonArticles);
                 articleRepository.saveOrUpdate(articles);
@@ -97,7 +98,9 @@ public class ServerPullService {
     private void loadEventImagesInBackground(List<EventJSON> jsonEvents) {
         for (EventJSON jsonEvent : jsonEvents) {
             imageLoader.downloadImage(jsonEvent.getLogo());
-            // TODO: add sponsor logos
+            for (SponsorJSON sponsor : jsonEvent.getSponsors()) {
+                imageLoader.downloadImage(sponsor.getImage());
+            }
         }
     }
 
