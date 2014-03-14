@@ -15,6 +15,7 @@ public class AboutFragment extends BaseFragment {
 
     @Inject
     SocialNetworkNavigation socialNetworkNavigation;
+
     @InjectView(R.id.facebookButton)
     ImageButton facebookButton;
     @InjectView(R.id.twitterButton)
@@ -36,13 +37,13 @@ public class AboutFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.facebookButton) {
-                    socialNetworkNavigation.goFacebook("417374488294373");
+                    socialNetworkNavigation.goFacebook(R.string.facebook);
                 } else if (view.getId() == R.id.googlePlusButton) {
-                    socialNetworkNavigation.goGooglePlus("+LvOugLv");
+                    socialNetworkNavigation.goGooglePlus(R.string.google_plus);
                 } else if (view.getId() == R.id.twitterButton) {
-                    socialNetworkNavigation.goTwitter("lvoug");
+                    socialNetworkNavigation.goTwitter(R.string.twitter);
                 } else if (view.getId() == R.id.mailToButton) {
-                    socialNetworkNavigation.goMailTo("andrejs.vorobjovs@lvoug.lv", "LVOUG Android App question");
+                    socialNetworkNavigation.goMailTo(R.string.mail, R.string.mail_subject);
                 }
             }
         };

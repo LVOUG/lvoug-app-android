@@ -18,6 +18,13 @@
     <string name="nav_twitter">Twitter</string>
     <string name="nav_past_events">Past Events</string>
 
+    <string name="facebook">417374488294373</string>
+    <string name="google_plus">+LvOugLv</string>
+    <string name="twitter">lvoug</string>
+
+    <string name="mail">andrejs.vorobjovs@lvoug.lv</string>
+    <string name="mail_subject">LVOUG Android App question</string>
+
     <string name="usergroup_about">Latvian Oracle User Group (LVOUG) is an independent organization that brings together
         Oracle users, professionals and other interested people in Latvia. Its purpose is to promote the knowledge and
         experience among the group members. Inform about the Oracle product enhancements and upgrades as well as provide
