@@ -1,7 +1,9 @@
 package lv.oug.android.domain;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "contacts")
 public class Contact {
 
     @DatabaseField(id = true)

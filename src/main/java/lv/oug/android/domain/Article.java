@@ -3,9 +3,11 @@ package lv.oug.android.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
+@DatabaseTable(tableName = "articles")
 public class Article implements Parcelable {
 
     @DatabaseField(id = true)

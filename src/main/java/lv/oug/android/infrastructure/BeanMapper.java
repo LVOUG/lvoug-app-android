@@ -100,7 +100,7 @@ public class BeanMapper {
         Sponsor sponsor = new Sponsor();
         sponsor.setId(s.getId());
         sponsor.setName(s.getName());
-        sponsor.setImage(s.getName());
+        sponsor.setImage(s.getImage());
         return sponsor;
     }
 
