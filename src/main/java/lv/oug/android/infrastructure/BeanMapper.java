@@ -26,7 +26,18 @@ public class BeanMapper {
     }
 
     private Event map(EventJSON eventJSON) {
-        Event event = new Event();
+        Event event = null;
+        try {
+            event = eventRepository.getEventDao().queryForId((int) eventJSON.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (event == null) {
+            event = eventRepository.createEmpty();
+        } else {
+            eventRepository.clearForeignCollections(event);
+        }
+
         event.setId(eventJSON.getId());
         event.setLogo(eventJSON.getLogo());
         event.setTitle(eventJSON.getTitle());
@@ -39,13 +50,6 @@ public class BeanMapper {
         event.setCreatedAt(eventJSON.getCreatedAt());
         event.setUpdatedAt(eventJSON.getUpdatedAt());
 
-        try {
-            event.setContacts(eventRepository.getEventDao().<Contact>getEmptyForeignCollection("contacts"));
-            event.setMaterials(eventRepository.getEventDao().<Material>getEmptyForeignCollection("materials"));
-            event.setSponsors(eventRepository.getEventDao().<Sponsor>getEmptyForeignCollection("sponsors"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         mapContacts(eventJSON, event);
         mapMaterials(eventJSON, event);
         mapSponsors(eventJSON, event);
@@ -90,7 +94,6 @@ public class BeanMapper {
 
     private Material map(MaterialJSON m) {
         Material material = new Material();
-        material.setId(m.getId());
         material.setTitle(m.getTitle());
         material.setUrl(m.getUrl());
         return material;
@@ -98,7 +101,6 @@ public class BeanMapper {
 
     private Sponsor map(SponsorJSON s) {
         Sponsor sponsor = new Sponsor();
-        sponsor.setId(s.getId());
         sponsor.setName(s.getName());
         sponsor.setImage(s.getImage());
         return sponsor;
@@ -106,7 +108,6 @@ public class BeanMapper {
 
     private Contact map(ContactJSON c) {
         Contact contact = new Contact();
-        contact.setId(c.getId());
         contact.setName(c.getName());
         contact.setSurname(c.getSurname());
         contact.setEmail(c.getEmail());

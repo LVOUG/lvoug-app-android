@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "sponsors")
 public class Sponsor {
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private long id;
 
     @DatabaseField

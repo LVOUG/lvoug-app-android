@@ -52,12 +52,35 @@ public class EventRepository {
         }
     }
 
+    public Event createEmpty() {
+        Event event = new Event();
+        try {
+            event.setContacts(getEventDao().<Contact>getEmptyForeignCollection("contacts"));
+            event.setMaterials(getEventDao().<Material>getEmptyForeignCollection("materials"));
+            event.setSponsors(getEventDao().<Sponsor>getEmptyForeignCollection("sponsors"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return event;
+    }
+
     public void clearEvents() {
         try {
             ConnectionSource source = db.getConnectionSource();
             TableUtils.clearTable(source, Event.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void clearForeignCollections(Event event) {
+        event.getContacts().clear();
+        event.getSponsors().clear();
+        event.getMaterials().clear();
+        try {
+            db.getEventDao().update(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
