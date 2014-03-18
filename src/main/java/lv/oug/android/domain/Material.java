@@ -6,6 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "materials")
 public class Material {
 
+    public static final java.lang.String EVENT_ID = "event_id";
+
     @DatabaseField(generatedId = true)
     private long id;
 
@@ -15,7 +17,7 @@ public class Material {
     @DatabaseField
     private String url;
 
-    @DatabaseField(foreign = true, columnName = "event_id")
+    @DatabaseField(foreign = true, columnName = EVENT_ID)
     private Event event;
 
     public long getId() {

@@ -18,6 +18,7 @@ import lv.oug.android.presentation.BaseApplication;
 import lv.oug.android.presentation.common.imageloader.ImageLoader;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,8 @@ public class ServerPullService {
             if (jsonEvents != null) {
                 loadEventImagesInBackground(jsonEvents);
                 List<Event> events = beanMapper.mapEvents(jsonEvents);
+                List<Long> ids = gatherIds(events);
+                eventRepository.deleteForeignCollections(ids);
                 eventRepository.saveOrUpdate(events);
                 logger.d("Received  " + jsonEvents.size() + " events from server");
             }
@@ -108,5 +111,13 @@ public class ServerPullService {
         for (ArticleJSON jsonArticle : jsonArticles) {
             imageLoader.downloadImage(jsonArticle.getImage());
         }
+    }
+
+    private List<Long> gatherIds(List<Event> events) {
+        List<Long> ids = new ArrayList<Long>();
+        for (Event event : events) {
+            ids.add(event.getId());
+        }
+        return ids;
     }
 }

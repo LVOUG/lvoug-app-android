@@ -3,6 +3,7 @@ package lv.oug.android.domain;
 import android.content.Context;
 import com.j256.ormlite.android.AndroidDatabaseResults;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
@@ -36,15 +37,15 @@ public class EventRepository {
                 getEventDao().createOrUpdate(event);
 
                 for (Contact contact : event.getContacts()) {
-                    db.getContactDao().createOrUpdate(contact);
+                    db.getContactDao().create(contact);
                 }
 
                 for (Material material : event.getMaterials()) {
-                    db.getMaterialDao().createOrUpdate(material);
+                    db.getMaterialDao().create(material);
                 }
 
                 for (Sponsor sponsor : event.getSponsors()) {
-                    db.getSponsorDao().createOrUpdate(sponsor);
+                    db.getSponsorDao().create(sponsor);
                 }
             }
         } catch (SQLException e) {
@@ -109,6 +110,45 @@ public class EventRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteForeignCollections(List<Long> ids) {
+        deleteContactsForEvents(ids);
+        deleteSponsorsForEvents(ids);
+        deleteMaterialsForEvents(ids);
+    }
+
+    private void deleteContactsForEvents(List<Long> ids) {
+        try {
+            Dao<Contact, Integer> dao = db.getContactDao();
+            DeleteBuilder<Contact,Integer> builder = dao.deleteBuilder();
+            builder.where().in(Contact.EVENT_ID, ids);
+            dao.delete(builder.prepare());
+        } catch (Exception e) {
+            logger.e("Failed to delete Contacts", e);
+        }
+    }
+
+    private void deleteSponsorsForEvents(List<Long> ids) {
+        try {
+            Dao<Sponsor, Integer> dao = db.getSponsorDao();
+            DeleteBuilder<Sponsor,Integer> builder = dao.deleteBuilder();
+            builder.where().in(Sponsor.EVENT_ID, ids);
+            dao.delete(builder.prepare());
+        } catch (Exception e) {
+            logger.e("Failed to delete Sponsors", e);
+        }
+    }
+
+    private void deleteMaterialsForEvents(List<Long> ids) {
+        try {
+            Dao<Material, Integer> dao = db.getMaterialDao();
+            DeleteBuilder<Material,Integer> builder = dao.deleteBuilder();
+            builder.where().in(Material.EVENT_ID, ids);
+            dao.delete(builder.prepare());
+        } catch (Exception e) {
+            logger.e("Failed to delete Materials", e);
         }
     }
 }

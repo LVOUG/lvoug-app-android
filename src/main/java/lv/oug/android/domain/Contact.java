@@ -6,6 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "contacts")
 public class Contact {
 
+    public static final String EVENT_ID = "event_id";
+
     @DatabaseField(generatedId = true)
     private long id;
 
@@ -21,7 +23,7 @@ public class Contact {
     @DatabaseField
     private String phone;
 
-    @DatabaseField(foreign = true, columnName = "event_id")
+    @DatabaseField(foreign = true, columnName = EVENT_ID)
     private Event event;
 
     public long getId() {

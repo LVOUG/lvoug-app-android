@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.os.Looper;
 import android.widget.ImageView;
 import lv.oug.android.R;
 
@@ -83,7 +84,7 @@ public class ImageLoader {
                         return;
                     BitmapDisplayer bd = new BitmapDisplayer(bmp, imageView, url);
                     if (handler == null) {
-                        handler = new Handler();
+                        handler = new Handler(Looper.getMainLooper());
                     }
                     handler.post(bd);
                 } catch (Throwable th) {

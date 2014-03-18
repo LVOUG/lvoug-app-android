@@ -8,7 +8,6 @@ import lv.oug.android.integration.webservice.events.MaterialJSON;
 import lv.oug.android.integration.webservice.events.SponsorJSON;
 
 import javax.inject.Inject;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,17 +25,7 @@ public class BeanMapper {
     }
 
     private Event map(EventJSON eventJSON) {
-        Event event = null;
-        try {
-            event = eventRepository.getEventDao().queryForId((int) eventJSON.getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (event == null) {
-            event = eventRepository.createEmpty();
-        } else {
-            eventRepository.clearForeignCollections(event);
-        }
+        Event event = eventRepository.createEmpty();
 
         event.setId(eventJSON.getId());
         event.setLogo(eventJSON.getLogo());
