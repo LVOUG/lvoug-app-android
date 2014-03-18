@@ -19,7 +19,7 @@ public abstract class BaseFragment extends SherlockFragment {
 
 	private ProgressDialog pd;
 
-	@Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         BaseApplication.inject(this);
         View view = inflater.inflate(contentViewId(), container, false);
