@@ -2,7 +2,7 @@ package lv.oug.android.presentation.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import butterknife.InjectView;
 import lv.oug.android.R;
 import lv.oug.android.domain.Article;
@@ -40,7 +40,7 @@ public class HomeFragment extends BaseFragment {
     EventRepository eventRepository;
 
     @InjectView(R.id.home_container)
-    FrameLayout homeContainer;
+    ScrollView homeContainer;
 
     @Override
     protected int contentViewId() {
