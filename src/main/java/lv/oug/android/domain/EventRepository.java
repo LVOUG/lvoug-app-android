@@ -85,13 +85,13 @@ public class EventRepository {
         }
     }
 
-    public Dao<Event, Integer> getEventDao() throws SQLException {
+    public Dao<Event, Long> getEventDao() throws SQLException {
         return db.getEventDao();
     }
 
     public AndroidDatabaseResults getRawResults() {
         try {
-            QueryBuilder<Event, Integer> queryBuilder = getEventDao().queryBuilder();
+            QueryBuilder<Event, Long> queryBuilder = getEventDao().queryBuilder();
             queryBuilder.orderBy("createdAt", false);
             PreparedQuery<Event> query = queryBuilder.prepare();
             return (AndroidDatabaseResults) getEventDao().iterator(query).getRawResults();
@@ -103,9 +103,9 @@ public class EventRepository {
     public Event loadNextUpcomingEvent() {
         try {
             Date now = dateService.currentDate();
-            QueryBuilder<Event, Integer> queryBuilder = getEventDao().queryBuilder();
+            QueryBuilder<Event, Long> queryBuilder = getEventDao().queryBuilder();
             queryBuilder.where().ge("eventDate", now);
-            QueryBuilder<Event, Integer> query = queryBuilder.orderBy("eventDate", true);
+            QueryBuilder<Event, Long> query = queryBuilder.orderBy("eventDate", true);
             return getEventDao().queryForFirst(query.prepare());
 
         } catch (SQLException e) {
@@ -121,8 +121,8 @@ public class EventRepository {
 
     private void deleteContactsForEvents(List<Long> ids) {
         try {
-            Dao<Contact, Integer> dao = db.getContactDao();
-            DeleteBuilder<Contact,Integer> builder = dao.deleteBuilder();
+            Dao<Contact, Long> dao = db.getContactDao();
+            DeleteBuilder<Contact,Long> builder = dao.deleteBuilder();
             builder.where().in(Contact.EVENT_ID, ids);
             dao.delete(builder.prepare());
         } catch (Exception e) {
@@ -132,8 +132,8 @@ public class EventRepository {
 
     private void deleteSponsorsForEvents(List<Long> ids) {
         try {
-            Dao<Sponsor, Integer> dao = db.getSponsorDao();
-            DeleteBuilder<Sponsor,Integer> builder = dao.deleteBuilder();
+            Dao<Sponsor, Long> dao = db.getSponsorDao();
+            DeleteBuilder<Sponsor,Long> builder = dao.deleteBuilder();
             builder.where().in(Sponsor.EVENT_ID, ids);
             dao.delete(builder.prepare());
         } catch (Exception e) {
@@ -143,8 +143,8 @@ public class EventRepository {
 
     private void deleteMaterialsForEvents(List<Long> ids) {
         try {
-            Dao<Material, Integer> dao = db.getMaterialDao();
-            DeleteBuilder<Material,Integer> builder = dao.deleteBuilder();
+            Dao<Material, Long> dao = db.getMaterialDao();
+            DeleteBuilder<Material,Long> builder = dao.deleteBuilder();
             builder.where().in(Material.EVENT_ID, ids);
             dao.delete(builder.prepare());
         } catch (Exception e) {

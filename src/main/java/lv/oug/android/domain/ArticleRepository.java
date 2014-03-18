@@ -56,13 +56,13 @@ public class ArticleRepository {
         }
     }
 
-    public Dao<Article, Integer> getArticleDao() throws SQLException {
+    public Dao<Article, Long> getArticleDao() throws SQLException {
         return db.getArticleDao();
     }
 
     public AndroidDatabaseResults getRawResults() {
         try {
-            QueryBuilder<Article, Integer> queryBuilder = getArticleDao().queryBuilder();
+            QueryBuilder<Article, Long> queryBuilder = getArticleDao().queryBuilder();
             queryBuilder.orderBy("createdAt", false);
             PreparedQuery<Article> query = queryBuilder.prepare();
             return (AndroidDatabaseResults) getArticleDao().iterator(query).getRawResults();
@@ -73,7 +73,7 @@ public class ArticleRepository {
 
     public Article loadLatestArticle() {
         try {
-            QueryBuilder<Article, Integer> queryBuilder = getArticleDao().queryBuilder();
+            QueryBuilder<Article, Long> queryBuilder = getArticleDao().queryBuilder();
             PreparedQuery<Article> query = queryBuilder.orderBy("createdAt", false).prepare();
             return getArticleDao().queryForFirst(query);
         } catch (SQLException e) {

@@ -8,6 +8,7 @@ import lv.oug.android.infrastructure.BeanMapper;
 import lv.oug.android.infrastructure.common.ClassLogger;
 import lv.oug.android.infrastructure.common.NetworkService;
 import lv.oug.android.infrastructure.common.SharedPreferenceService;
+import lv.oug.android.infrastructure.common.StringUtils;
 import lv.oug.android.integration.webservice.WebServiceIntegration;
 import lv.oug.android.integration.webservice.articles.ArticleJSON;
 import lv.oug.android.integration.webservice.articles.ArticleWrapperJSON;
@@ -109,7 +110,10 @@ public class ServerPullService {
 
     private void loadArticleImagesInBackground(List<ArticleJSON> jsonArticles) {
         for (ArticleJSON jsonArticle : jsonArticles) {
-            imageLoader.downloadImage(jsonArticle.getImage());
+            String image = jsonArticle.getImage();
+            if (!StringUtils.isEmpty(image)) {
+                imageLoader.downloadImage(image);
+            }
         }
     }
 
