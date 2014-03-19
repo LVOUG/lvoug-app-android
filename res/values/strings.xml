@@ -10,6 +10,7 @@
     <string name="failed_to_connect_to_server">Connection to server failed</string>
     <string name="no_img_found">No IMG found</string>
     <string name="app_not_available">App not available</string>
+    <string name="no_items_available">No items available</string>
 
     <!--Navigation Tabs-->
     <string name="nav_home">Home</string>

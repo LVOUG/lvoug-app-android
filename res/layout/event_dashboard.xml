@@ -21,4 +21,6 @@
             android:divider="@null"
             />
 
+    <include layout="@layout/empty_list"/>
+
 </LinearLayout>

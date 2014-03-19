@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.InjectView;
@@ -42,6 +43,9 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
     @InjectView(R.id.list_articles)
     PullToRefreshListView listArticles;
 
+    @InjectView(R.id.empty_view)
+    LinearLayout emptyView;
+
     @Override
     protected int contentViewId() {
         return R.layout.article_dashboard;
@@ -52,6 +56,7 @@ public class ArticleDashboardFragment extends BaseFragment implements OnRefreshL
         listArticles.setAdapter(adapter);
         listArticles.setOnRefreshListener(this);
         listArticles.setOnItemClickListener(this);
+        listArticles.setEmptyView(emptyView);
     }
 
     @Override

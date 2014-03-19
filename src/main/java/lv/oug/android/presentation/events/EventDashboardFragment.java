@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.InjectView;
@@ -43,6 +44,9 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
     @InjectView(R.id.list_events)
     PullToRefreshListView listEvents;
 
+    @InjectView(R.id.empty_view)
+    LinearLayout emptyView;
+
     @Override
     protected int contentViewId() {
         return R.layout.event_dashboard;
@@ -53,6 +57,7 @@ public class EventDashboardFragment extends BaseFragment implements OnRefreshLis
         listEvents.setAdapter(adapter);
         listEvents.setOnRefreshListener(this);
         listEvents.setOnItemClickListener(this);
+        listEvents.setEmptyView(emptyView);
     }
 
     @Override
