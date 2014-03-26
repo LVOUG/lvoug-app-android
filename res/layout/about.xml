@@ -11,7 +11,7 @@
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
             >
-        <ImageView android:src="@drawable/lvoug_about_img"
+        <ImageView android:src="@drawable/lvoug_about"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:adjustViewBounds="true"
